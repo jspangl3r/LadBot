@@ -1,8 +1,14 @@
 {
-  "name": "LadBot",
+  "name": "ladbot",
   "version": "1.0.0",
-  "description": "",
+  "description": "A WIP Node.js discord bot",
   "main": "index.js",
+  "dependencies": {
+    "cleverbot-node": "^0.3.11",
+    "discord.js": "^11.4.2",
+    "enmap": "^4.5.0"
+  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,15 +16,10 @@
     "type": "git",
     "url": "git+https://github.com/JoshSpangler/LadBot.git"
   },
-  "keywords": [],
-  "author": "",
+  "author": "Josh Spangler",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/JoshSpangler/LadBot/issues"
   },
-  "homepage": "https://github.com/JoshSpangler/LadBot#readme",
-  "dependencies": {
-    "discord.js": "^11.4.2"
-  },
-  "devDependencies": {}
+  "homepage": "https://github.com/JoshSpangler/LadBot#readme"
 }
