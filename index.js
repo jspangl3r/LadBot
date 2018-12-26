@@ -31,6 +31,12 @@ fs.readdir("./commands/", (err, files) => {
 	});
 });
 
+// Start Musicbot stuff
+client.music = require("discord.js-musicbot-addon");
+client.music.start(client, {
+	youtubeKey: config.youtubeKey 
+});
+
 console.log("Logging into discord...");
 
 // Login bot to discord
