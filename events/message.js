@@ -12,8 +12,13 @@ module.exports = (client, message) => {
 		return;
 
 	// Check to see if the bot was mentioned
-	if(message.content.match(client.config.botID)) {
+	const prefixMention = message.content.slice(0, client.config.botID.length+1).trim();
+	if(prefixMention === client.config.botID) {
 		var msg = message.content.slice(client.config.botID.length+1);
+		
+		// Deal with empty message
+		if(!msg)
+			return message.reply("Why u be saying nothing to me, b?");
 
 		// Invoke Cleverbot with message text
 		message.channel.startTyping();
