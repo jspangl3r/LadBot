@@ -18,7 +18,7 @@ module.exports = (client, message) => {
 		// Invoke Cleverbot with message text
 		message.channel.startTyping();
 		cleverbot.write(msg, function (response) {
-			message.channel.send(response.output);
+			message.reply(response.output);
 		});
 		message.channel.stopTyping();
 
@@ -31,8 +31,8 @@ module.exports = (client, message) => {
 
 	// Separate message into args and command
 	const args = message.content.slice(client.config.prefix.length).trim().split(/ +/g);
-	const command = args.shift().toLowerCase();
-	
+	const command = args.shift();
+
 	// Get command data from the commands Enmap in index.js
 	const cmd = client.commands.get(command);
 	
