@@ -5,7 +5,9 @@ exports.run = (client, message, args) => {
 						  "Asking if Jeremy is okay", "Let a nigga sleep, cuz", "Dreaming about Manny",
 					      "Getting a Switch + Smash ultimate", "Fucking dying", "Travis is black",
 						  "Bruh", "Manny has fucking died", "Getting pussy with Chris", "Snapchatting like Jackson",
-						  "Posting excessive memes", "Playing either Sicko Mode or Mo Bamba", "Going to McD"];
+						  "Posting excessive memes", "either Sicko Mode or Mo Bamba", "Going to McD",
+						  "Crushing my greasy cock and balls with a rock", "Bumping to the goat, Carti"];
+
 
 	var randStatus = customActivities[Math.floor(Math.random() * customActivities.length)];
 	client.user.setActivity(randStatus);	

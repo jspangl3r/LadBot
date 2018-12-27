@@ -8,7 +8,8 @@ const customActivities = ["Finally shaving Flynn's stache", "This discord sucks"
 						  "Asking if Jeremy is okay", "Let a nigga sleep, cuz", "Dreaming about Manny",
 					      "Getting a Switch + Smash ultimate", "Fucking dying", "Travis is black",
 						  "Bruh", "Manny has fucking died", "Getting pussy with Chris", "Snapchatting like Jackson",
-						  "Posting excessive memes", "Playing either Sicko Mode or Mo Bamba", "Going to McD"];
+						  "Posting excessive memes", "either Sicko Mode or Mo Bamba", "Going to McD",
+						  "Crushing my greasy cock and balls with a rock", "Bumping to the goat, Carti"];
 
 // Make sure config is attached to client so it is accessible everywhere
 client.config = config;

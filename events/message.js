@@ -6,6 +6,8 @@ module.exports = (client, message) => {
 	var Cleverbot = require("cleverbot-node");
 	cleverbot = new Cleverbot;
 	cleverbot.configure({botapi: "CCCkuYdUalEL5JP4RAgWQxXU6NA"});
+	const lolzMsgs = ["Yo nice one, Chief", "Now that was epic", "Lmao say it again", "Heh, nice one",
+				      "ROFL!", "Dude that was so funny", "Say it again you won't", "What a gamer"];
 
 	// Ignore all bots
 	if(message.author.bot)
@@ -28,6 +30,13 @@ module.exports = (client, message) => {
 		message.channel.stopTyping();
 
 		return;
+	}
+
+	// Check for offensive message
+	const offensiveMsg = "nig";
+	if(message.content.toLowerCase().match(offensiveMsg)) {
+		return message.reply(lolzMsgs[Math.floor(Math.random() * lolzMsgs.length)]
+							 + " <:bruh:517226415725346827>");
 	}
 
 	// At this point, ignore messages not starting with the prefix '!'
