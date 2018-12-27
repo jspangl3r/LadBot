@@ -4,6 +4,11 @@ const Enmap = require("enmap");
 const fs = require("fs");
 const client = new Discord.Client();
 const config = require("./config.json");
+const customActivities = ["Finally shaving Flynn's stache", "This discord sucks",
+						  "Asking if Jeremy is okay", "Let a nigga sleep, cuz", "Dreaming about Manny",
+					      "Getting a Switch + Smash ultimate", "Fucking dying", "Travis is black",
+						  "Bruh", "Manny has fucking died", "Getting pussy with Chris", "Snapchatting like Jackson",
+						  "Posting excessive memes", "Playing either Sicko Mode or Mo Bamba", "Going to McD"];
 
 // Make sure config is attached to client so it is accessible everywhere
 client.config = config;
@@ -37,7 +42,13 @@ client.music.start(client, {
 	youtubeKey: config.youtubeKey 
 });
 
-console.log("Logging into discord...");
-
 // Login bot to discord
+console.log("Logging into discord...");
 client.login(config.token);
+
+// On login
+client.on("ready", () => {
+	console.log("Logged into discord!");
+	var randStatus = customActivities[Math.floor(Math.random() * customActivities.length)];
+	client.user.setActivity(randStatus);
+});
