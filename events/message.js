@@ -33,7 +33,7 @@ module.exports = (client, message) => {
 	// Check for offensive message
 	const offensiveMsg = "nig";
 	if(message.content.toLowerCase().match(offensiveMsg)) {
-		return message.reply(lolzMsgs[Math.floor("<:bruh:517226415725346827>");
+		return message.reply("<:bruh:517226415725346827>");
 	}
 
 	// At this point, ignore messages not starting with the prefix '!'
