@@ -31,12 +31,10 @@ module.exports = (client, message) => {
 	}
 
 	// Check for offensive message
-	const offensiveMsg = "nig";
 	var splits = message.content.toLowerCase().split(/ +/g);
 	for(var i = 0; i < splits.length; i++) {
 		var word = splits[i];
-		console.log(word.slice(0, 3));
-		if( (word.length >= 3) && (word.slice(0, 3) === offensiveMsg) ) {
+		if( (word.length >= 3) && (word.match('nig')) ) {
 			return message.reply("<:bruh:517226415725346827>");	
 		}
 	}	
