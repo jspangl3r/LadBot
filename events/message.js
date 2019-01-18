@@ -39,6 +39,15 @@ module.exports = (client, message) => {
 		}
 	}	
 
+	// Check for Matt message hehe
+	const mattID = '142787044282728448';
+	if(message.author.id === mattID) {
+		var rand = Math.floor(Math.random() * 100) + 1;
+		if(rand == 1) {
+			return message.channel.send("Shut up, " + message.author);
+		}
+	}
+
 	// At this point, ignore messages not starting with the prefix '!'
 	if(message.content.indexOf(client.config.prefix) !== 0)
 		return;
