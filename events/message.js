@@ -32,9 +32,14 @@ module.exports = (client, message) => {
 
 	// Check for offensive message
 	const offensiveMsg = "nig";
-	if(message.content.toLowerCase().match(offensiveMsg)) {
-		return message.reply("<:bruh:517226415725346827>");
-	}
+	var splits = message.content.toLowerCase().split(/ +/g);
+	for(var i = 0; i < splits.length; i++) {
+		var word = splits[i];
+		console.log(word.slice(0, 3));
+		if( (word.length >= 3) && (word.slice(0, 3) === offensiveMsg) ) {
+			return message.reply("<:bruh:517226415725346827>");	
+		}
+	}	
 
 	// At this point, ignore messages not starting with the prefix '!'
 	if(message.content.indexOf(client.config.prefix) !== 0)
