@@ -40,7 +40,10 @@ fs.readdir("./commands/", (err, files) => {
 // Start Musicbot stuff
 client.music = require("discord.js-musicbot-addon");
 client.music.start(client, {
-	youtubeKey: config.youtubeKey 
+	youtubeKey: config.youtubeKey, 
+	anyoneCanSkip : true,
+	musicPresence : true,
+	clearPresence : true
 });
 
 // Login bot to discord
