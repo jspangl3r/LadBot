@@ -34,10 +34,16 @@ module.exports = (client, message) => {
 	var splits = message.content.toLowerCase().split(/ +/g);
 	for(var i = 0; i < splits.length; i++) {
 		var word = splits[i];
-		if( (word.length >= 3) && (word.match('nig')) ) {
-			return message.reply("<:bruh:517226415725346827>");	
+		
+		// front of word
+		if(word.slice(0, 3) === 'nig') {
+			return message.reply("<:bruh:517226415725346827>");
 		}
-	}	
+		// back of word
+		else if(word.slice(word.length-3, word.length) === 'nig') {
+			return message.reply("<:bruh:517226415725346827>");
+		}
+	}		
 
 	// Check for Matt message hehe
 	if(message.author.id === client.config.mattID) {
