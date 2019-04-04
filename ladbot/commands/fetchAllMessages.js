@@ -1,4 +1,4 @@
-// Goal: fetch all past messages into a Discord.js Collection object
+// Goal: fetch a certain number of past messages and compile it into a json "database"
 
 exports.run = (client, message, args) => {
 	// We're going to need these
@@ -17,7 +17,7 @@ exports.run = (client, message, args) => {
 		function test() {
 			return counter < 100;
 		},
-		// Grab the last message from the updating message ID
+		// Grab the last 100 messages from the updating message ID
 		function fetch(callback) {
 			message.channel.fetchMessages({ limit: 100, before: msgID })
 				.then(function(messages) {
