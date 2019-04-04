@@ -32,6 +32,13 @@ module.exports.onMessage = function onMessage(client, message, db) {
 
 		return;
 	}
+	
+	// Train some messages for the bot!
+    	let chatID = message.id;
+    	if(!db[chatID]) {
+    		// Create new chain for new message
+    		db[chatID] = markov.createChain();
+   	}
 
 	// Check for offensive message
 	let splits = message.content.toLowerCase().split(/ +/g);
@@ -55,14 +62,6 @@ module.exports.onMessage = function onMessage(client, message, db) {
 			return message.channel.send("Shut up, " + message.author);
 		}
 	}
-
-    // Train some messages for the bot!
-    let chatID = message.id;
-    if(!db[chatID]) {
-    	// Create new chain for new message
-    	db[chatID] = markov.createChain();
-    }
-
 
 	// At this point, ignore messages not starting with the prefix '!'
 	if(message.content.indexOf(client.config.prefix) !== 0)
