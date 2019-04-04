@@ -1,9 +1,12 @@
-// This event handles the reading of every message received in the server
-// This includes mentions (Cleverbot)
+// Handles message reading and markov stuff
 
-module.exports = (client, message) => {
+const markov = require("./markov.js");
+
+// The bread and butter method
+module.exports.onMessage = function onMessage(client, message, db) {
+	
 	// Cleverbot stuff
-	var Cleverbot = require("cleverbot-node");
+	let Cleverbot = require("cleverbot-node");
 	cleverbot = new Cleverbot;
 	cleverbot.configure({botapi: client.config.cleverbotKey});
 
@@ -14,7 +17,7 @@ module.exports = (client, message) => {
 	// Check to see if the bot was mentioned
 	const prefixMention = message.content.slice(0, client.config.botID.length+1).trim();
 	if(prefixMention === client.config.botID) {
-		var msg = message.content.slice(client.config.botID.length+1);
+		let msg = message.content.slice(client.config.botID.length+1);
 		
 		// Deal with empty message
 		if(!msg)
@@ -31,9 +34,9 @@ module.exports = (client, message) => {
 	}
 
 	// Check for offensive message
-	var splits = message.content.toLowerCase().split(/ +/g);
-	for(var i = 0; i < splits.length; i++) {
-		var word = splits[i];
+	let splits = message.content.toLowerCase().split(/ +/g);
+	for(let i = 0; i < splits.length; i++) {
+		let word = splits[i];
 		
 		// front of word
 		if(word.slice(0, 3) === 'nig') {
@@ -47,11 +50,19 @@ module.exports = (client, message) => {
 
 	// Check for Matt message hehe
 	if(message.author.id === client.config.mattID) {
-		var rand = Math.floor(Math.random() * 100) + 1;
+		let rand = Math.floor(Math.random() * 100) + 1;
 		if(rand == 1) {
 			return message.channel.send("Shut up, " + message.author);
 		}
 	}
+
+    // Train some messages for the bot!
+    let chatID = message.id;
+    if(!db[chatID]) {
+    	// Create new chain for new message
+    	db[chatID] = markov.createChain();
+    }
+
 
 	// At this point, ignore messages not starting with the prefix '!'
 	if(message.content.indexOf(client.config.prefix) !== 0)
@@ -69,5 +80,5 @@ module.exports = (client, message) => {
 		return;
 	
 	// Otherwise, run the comand
-	cmd.run(client, message, args);
-};
+	cmd.run(client, message, args);	
+}

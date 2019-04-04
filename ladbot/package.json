@@ -4,6 +4,7 @@
   "description": "A WIP Node.js discord bot for the Young Lads discord server",
   "main": "index.js",
   "dependencies": {
+    "async": "^2.6.2",
     "better-sqlite-pool": "^0.1.2",
     "bufferutil": "^3.0.5",
     "cleverbot-node": "^0.3.11",
@@ -12,6 +13,8 @@
     "enmap": "^4.5.0",
     "erlpack": "^0.1.0",
     "libsodium-wrappers": "^0.7.3",
+    "n": "^3.0.0",
+    "node-gyp": "^3.8.0",
     "node-opus": "^0.2.9",
     "opusscript": "^0.0.6",
     "uws": "^9.148.0",

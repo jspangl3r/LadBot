@@ -4,7 +4,9 @@ exports.run = (client, message, args) => {
 	// We're going to need these
 	const async = require("async");
 	const fs = require("fs");
+	const markov = require("../markov.js");
 	const config = require("../config.json");
+
 
 	// Setup the counter, some recent message ID, and the new database
 	let counter = 0;	
