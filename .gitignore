@@ -1,5 +1,6 @@
 ladbot/.idea/
-ladbot/node_modules/
+.idea/
+node_modules/
 ladbot/config.json
 ladbot/db.json
 ladbot/.DS_Store
