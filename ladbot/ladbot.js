@@ -21,9 +21,9 @@ module.exports.onMessage = function onMessage(client, message, db) {
 			return message.reply("Why u be saying nothing to me, b?");
 
 		// Invoke markov - generate and send an epic response
-		let chatID = message.channel.id;
-		if(db[chatID]) {
-			let response = markov.generateSentence(db[chatID]);
+		let channelID = message.channel.id;
+		if(db[channelID]) {
+			let response = markov.generateSentence(db[channelID]);
 			if(response === -1) {
 				return message.channel.send("EMPTY CHAIN WARNING -- Let me listen for a little bit");
 			}
@@ -32,7 +32,7 @@ module.exports.onMessage = function onMessage(client, message, db) {
 		}
 		else {
 			// Create chain on no data
-			db[chatID] = markov.createChain();
+			db[channelID] = markov.createChain();
 		    return message.channel.send("NO CHAIN FOR THIS MESSAGE -- Let me listen for a little bit");
 		}
 	}
@@ -61,14 +61,16 @@ module.exports.onMessage = function onMessage(client, message, db) {
 	}
 
     // Train some messages for the bot!
-    let chatID = message.channel.id;
-    if(!db[chatID]) {
+    let channelID = message.channel.id;
+    let msgText = message.content;
+    if(!db[channelID]) {
     	// Create new chain for new message
-    	db[chatID] = markov.createChain();
+    	db[channelID] = markov.createChain();
     }
     // Now merge the message text into a possibly pre-existing chain
-  	markov.mergeSentence(db[chatID], message.content);	
-    
+  	if(msgTxt) {
+  		markov.mergeSentence(db[channelID], msgText);	
+    }
 
 	// At this point, ignore messages not starting with the prefix '!'
 	if(message.content.indexOf(client.config.prefix) !== 0)

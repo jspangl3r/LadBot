@@ -24,26 +24,26 @@ exports.run = (client, message, args) => {
 		function fetch(callback) {
 			message.channel.fetchMessages({ limit: 100, before: msgID })
 				.then(function(messages) {
+					let msgText, msgAuthor, channelID;
+					let msgArray = messages.array();
 					// Update msgID with the last message in this block
 					msgID = messages.last().id;
 					// Now, we loop over each fetched message
-					let msgText, author, chatID;
-					let msgArray = messages.array();
 					msgArray.forEach(function(msg) {
 						msgText = msg.content;
 						msgID = msg.id;
-						author = msg.author;
-						chatID = msg.channel.id;
+						msgAuthor = msg.author;
+						channelID = msg.channel.id;
 						// Only generate a chain from this message if its text only, 
 						// we aren't looking at another bot's wacky message
 						if(msgText && !author.bot && msgText.charAt(0) != '!')   {
 							console.log(msgText);
 							// Create new chain
-							if(!db[chatID]) {
-								db[chatID] = markov.createChain();
+							if(!db[channelID]) {
+								db[channelID] = markov.createChain();
 							}
 							// Now merge this message into the chain
-							markov.mergeSentence(db[chatID], msgText);
+							markov.mergeSentence(db[channelID], msgText);
 						}
 					});
 				})
