@@ -1,7 +1,7 @@
 {
   "name": "ladbot",
-  "version": "1.0.1",
-  "description": "A WIP Node.js discord bot for the Young Lads discord server",
+  "version": "1.0.0",
+  "description": "The official YoungLads discord bot.",
   "main": "index.js",
   "dependencies": {
     "async": "^2.6.2",
@@ -26,12 +26,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/JoshSpangler/LadBot.git"
+    "url": "git+https://github.com/joshspangler/LadBot.git"
   },
   "author": "Josh Spangler",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/JoshSpangler/LadBot/issues"
+    "url": "https://github.com/joshspangler/LadBot/issues"
   },
-  "homepage": "https://github.com/JoshSpangler/LadBot#readme"
+  "homepage": "https://github.com/joshspangler/LadBot#readme"
 }
