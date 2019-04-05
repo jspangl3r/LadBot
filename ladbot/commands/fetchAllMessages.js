@@ -7,15 +7,18 @@ exports.run = (client, message, args) => {
 	const markov = require("../markov.js");
 	const config = require("../config.json");
 
+	if(message.author.id != config.ownerID) {
+		return message.reply(" nice try, lol :sunglasses:");
+	}
 
 	// Setup the counter, some recent message ID, and the new database
 	let counter = 0;	
-	let msgID = 563140663764582451;
+	let msgID = 563505299734921247;
 	let db = { };
 	async.whilst(
-		// We're going to grab the first 10k messages to start things off
+		// We're going to grab the first 100k messages to start things off
 		function test() {
-			return counter < 100;
+			return counter < 1000;
 		},
 		// Grab the last 100 messages from the updating message ID
 		function fetch(callback) {
@@ -24,17 +27,23 @@ exports.run = (client, message, args) => {
 					// Update msgID with the last message in this block
 					msgID = messages.last().id;
 					// Now, we loop over each fetched message
-					let msgText, author;
+					let msgText, author, chatID;
 					let msgArray = messages.array();
 					msgArray.forEach(function(msg) {
 						msgText = msg.content;
 						msgID = msg.id;
 						author = msg.author;
-						// Only store this message if it isn't blank (a picture?) and
+						chatID = msg.channel.id;
+						// Only generate a chain from this message if its text only, 
 						// we aren't looking at another bot's wacky message
-						if(msgText && !author.bot)   {
+						if(msgText && !author.bot && msgText.charAt(0) != '!')   {
 							console.log(msgText);
-							db[msgID] = msgText;
+							// Create new chain
+							if(!db[chatID]) {
+								db[chatID] = markov.createChain();
+							}
+							// Now merge this message into the chain
+							markov.mergeSentence(db[chatID], msgText);
 						}
 					});
 				})

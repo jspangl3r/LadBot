@@ -18,7 +18,7 @@ const customActivities = ["Finally shaving Flynn's stache", "This discord sucks"
 client.config = config;
 
 // Load up markov database
-let db;
+let db = { };
 try {
 	let fileContents = fs.readFileSync(config.database);
 	db = JSON.parse(fileContents);
@@ -26,6 +26,22 @@ try {
 }
 catch(err) {
 	console.log(err);
+}
+
+// Setup stuff to save database file
+function save() {
+	let fileContents = JSON.stringify(db);
+	fs.writeFileSync(config["database"], fileContents);
+	console.log("Database has been saved.");
+
+}
+function saveTimer() {
+	save();
+	setTimeout(saveTimer, config["auto-save-interval"]*1000);
+}
+if(config["auto-save"]) {
+	console.log("Auto save is on.");
+	setTimeout(saveTimer, config["auto-save-interval"]*1000);
 }
 
 // Load all command js files

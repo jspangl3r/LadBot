@@ -1,14 +1,11 @@
-// Handles message reading and markov stuff
+/*
+Responsible for dealing with message events as well as some markov stuff.
+*/
 
 const markov = require("./markov.js");
 
 // The bread and butter method
 module.exports.onMessage = function onMessage(client, message, db) {
-	
-	// Cleverbot stuff
-	let Cleverbot = require("cleverbot-node");
-	cleverbot = new Cleverbot;
-	cleverbot.configure({botapi: client.config.cleverbotKey});
 
 	// Ignore all bots
 	if(message.author.bot)
@@ -23,14 +20,21 @@ module.exports.onMessage = function onMessage(client, message, db) {
 		if(!msg)
 			return message.reply("Why u be saying nothing to me, b?");
 
-		// Invoke Cleverbot with message text
-		message.channel.startTyping();
-		cleverbot.write(msg, function (response) {
-			message.reply(response.output);
-		});
-		message.channel.stopTyping();
-
-		return;
+		// Invoke markov - generate and send an epic response
+		let chatID = message.channel.id;
+		if(db[chatID]) {
+			let response = markov.generateSentence(db[chatID]);
+			if(response === -1) {
+				return message.channel.send("EMPTY CHAIN WARNING -- Let me listen for a little bit");
+			}
+			// Return good response!
+		    return message.channel.send(response);
+		}
+		else {
+			// Create chain on no data
+			db[chatID] = markov.createChain();
+		    return message.channel.send("NO CHAIN FOR THIS MESSAGE -- Let me listen for a little bit");
+		}
 	}
 
 	// Check for offensive message
@@ -57,12 +61,14 @@ module.exports.onMessage = function onMessage(client, message, db) {
 	}
 
     // Train some messages for the bot!
-    let chatID = message.id;
+    let chatID = message.channel.id;
     if(!db[chatID]) {
     	// Create new chain for new message
     	db[chatID] = markov.createChain();
     }
-
+    // Now merge the message text into a possibly pre-existing chain
+  	markov.mergeSentence(db[chatID], message.content);	
+    
 
 	// At this point, ignore messages not starting with the prefix '!'
 	if(message.content.indexOf(client.config.prefix) !== 0)
