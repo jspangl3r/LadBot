@@ -15,5 +15,16 @@
   "bugs": {
     "url": "https://github.com/JoshSpangler/LadBot/issues"
   },
-  "homepage": "https://github.com/JoshSpangler/LadBot#readme"
+  "homepage": "https://github.com/JoshSpangler/LadBot#readme",
+  "dependencies": {
+    "async": "^2.6.2",
+    "bufferutil": "^4.0.1",
+    "discord.js": "^11.4.2",
+    "discord.js-musicbot-addon": "^13.5.1",
+    "enmap": "^4.8.2",
+    "erlpack": "^0.1.2",
+    "node-opus": "^0.3.1",
+    "sodium": "^3.0.2",
+    "uws": "^100.0.1"
+  }
 }

@@ -18,7 +18,7 @@ exports.run = (client, message, args) => {
 	async.whilst(
 		// We're going to grab the first 100k messages to start things off
 		function test() {
-			return counter < 1000;
+			return counter < 100;
 		},
 		// Grab the last 100 messages from the updating message ID
 		function fetch(callback) {
@@ -36,7 +36,7 @@ exports.run = (client, message, args) => {
 						channelID = msg.channel.id;
 						// Only generate a chain from this message if its text only, 
 						// we aren't looking at another bot's wacky message
-						if(msgText && !author.bot && msgText.charAt(0) != '!')   {
+						if(msgText && !msgAuthor.bot && msgText.charAt(0) !== '!')   {
 							console.log(msgText);
 							// Create new chain
 							if(!db[channelID]) {
