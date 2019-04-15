@@ -1,7 +1,10 @@
-ladbot/.idea/
 .idea/
 node_modules/
+config.json
+db.json
+.DS_Store
+ladbot/.idea/
+ladbot/node_modules/
 ladbot/config.json
 ladbot/db.json
 ladbot/.DS_Store
-.DS_Store

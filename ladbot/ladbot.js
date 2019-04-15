@@ -2,9 +2,22 @@
 Responsible for dealing with message events as well as some markov stuff.
 */
 
+// We're gonna use this to handle markov chaining stuffs
 const markov = require("./markov.js");
 
-// The bread and butter method
+/*
+The bread and butter method of this bot.
+Each time a message in a text channel is sent, the bot will read it, where
+	this function decides what to do with that message.
+
+Current features:
+	
+		1) Reply with a unique markov chain message upon being mentioned
+		2) Reply when an offensive message is read
+			NOTE: the code for this actually stinks and should be better 
+		3) Possibly reply (???!) when Matt says something\
+		4) Load a custom command 
+*/
 module.exports.onMessage = function onMessage(client, message, db) {
 
 	// Ignore all bots
@@ -12,9 +25,10 @@ module.exports.onMessage = function onMessage(client, message, db) {
 		return;
 
 	// Check to see if the bot was mentioned
-	const prefixMention = message.content.slice(0, client.config.botID.length+1).trim();
-	if(prefixMention === client.config.botID) {
-		let msg = message.content.slice(client.config.botID.length+1);
+	let botMention = client.config.botMentionID;
+	const prefixMention = message.content.slice(0, botMention.length+1).trim();
+	if(prefixMention === botMention) {
+		let msg = message.content.slice(botMention.length+1);
 		
 		// Deal with empty message
 		if(!msg)
@@ -39,15 +53,16 @@ module.exports.onMessage = function onMessage(client, message, db) {
 
 	// Check for offensive message
 	let splits = message.content.toLowerCase().split(/ +/g);
+	let badWord = client.config.badWord;
 	for(let i = 0; i < splits.length; i++) {
 		let word = splits[i];
 		
 		// front of word
-		if(word.slice(0, 3) === 'nig') {
+		if(word.slice(0, 3) === badWord) {
 			return message.reply("<:bruh:517226415725346827>");
 		}
 		// back of word
-		else if(word.slice(word.length-3, word.length) === 'nig') {
+		else if(word.slice(word.length-3, word.length) === badWord) {
 			return message.reply("<:bruh:517226415725346827>");
 		}
 	}		

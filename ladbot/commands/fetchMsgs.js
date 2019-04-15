@@ -1,4 +1,9 @@
-// Goal: fetch a certain number of past messages and compile it into a json "database"
+/*
+File used in populating the JSON database of old chat messages.
+Using a semi-recent chat message ID, will loop backwards and fetch 100 messages
+	at a time, until the specified counter is maxed.
+Each message grabbed is merged into the text channel's specifc markov master chain.
+*/
 
 exports.run = (client, message, args) => {
 	// We're going to need these
@@ -16,9 +21,9 @@ exports.run = (client, message, args) => {
 	let msgID = 563505299734921247;
 	let db = { };
 	async.whilst(
-		// We're going to grab the first 100k messages to start things off
+		// We're going to grab the first 300k messages to start things off
 		function test() {
-			return counter < 100;
+			return counter < 3000;
 		},
 		// Grab the last 100 messages from the updating message ID
 		function fetch(callback) {

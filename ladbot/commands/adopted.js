@@ -1,7 +1,8 @@
-// Will a meme-esque message brought to you by the Lads
+/*
+Brings a nice meme to the channel, as per requested by some lad.
+*/
 
 exports.run = (client, message, args) => {
-	let adopted = "╭━━━━━━━╮ \n┃　　● ══　 █ ┃\n ┃██████████┃ \n┃██████████┃ \n┃██████████┃ \n┃█ ur adopted. █┃\n ┃█ -Mom&Dad █┃ \n┃██████████┃ \n┃██████████┃ \n┃██████████┃ \n┃　　　○　　　 ┃\n ╰━━━━━━━╯";
-
+	let adopted = client.config.adopted;
 	return message.channel.send(adopted);
 }

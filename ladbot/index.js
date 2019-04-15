@@ -1,20 +1,14 @@
 /*
 Infrastructure file that sets up the bot.
 */
+
+// Stuff we're gonna need
 const Discord = require("discord.js");
 const Enmap = require("enmap");
 const fs = require("fs");
 const config = require("./config.json");
 const ladbot = require("./ladbot.js");
 const client = new Discord.Client();
-
-// For the lolz
-const customActivities = ["Finally shaving Flynn's stache", "This discord sucks",
-						  "Asking if Jeremy is okay", "Let a nigga sleep, cuz", "Dreaming about Manny",
-					      "Getting a Switch + Smash ultimate", "Fucking dying", "Travis is black",
-						  "Bruh", "Manny has fucking died", "Getting pussy with Chris", "Snapchatting like Jackson",
-						  "Posting excessive memes", "either Sicko Mode or Mo Bamba", "Going to McD",
-						  "Crushing my greasy cock and balls with a rock", "Bumping to the goat, Carti"];
 
 // Make sure config is attached to client so it is accessible everywhere
 client.config = config;
@@ -30,7 +24,10 @@ catch(err) {
 	console.log(err);
 }
 
-// Setup stuff to save database file
+/*
+Setup functions to manage the JSON database saving
+These functions can be modified to setup auto-save intervals to your liking
+*/
 function save() {
 	let fileContents = JSON.stringify(db);
 	fs.writeFileSync(config["database"], fileContents);
@@ -75,11 +72,12 @@ client.login(config.token);
 // On login
 client.on("ready", () => {
 	console.log("Logged into discord!");
-	var randStatus = customActivities[Math.floor(Math.random() * customActivities.length)];
+	let customActivities = config.customActivities;
+	let randStatus = customActivities[Math.floor(Math.random() * customActivities.length)];
 	client.user.setActivity(randStatus);
 });
 
-// On message
+// On a read message in the chat, do something!
 client.on("message", (message) => {
 	ladbot.onMessage(client, message, db);
 });
