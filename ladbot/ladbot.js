@@ -75,20 +75,20 @@ module.exports.onMessage = function onMessage(client, message, db) {
 		}
 	}
 
-    // Train some messages for the bot!
-    let channelID = message.channel.id;
-    let msgText = message.content;
-    if(!db[channelID]) {
-    	// Create new chain for new message
-    	db[channelID] = markov.createChain();
-    }
-    /*
+    	// Train some messages for the bot!
+   	let channelID = message.channel.id;
+    	let msgText = message.content;
+    	if(!db[channelID]) {
+    		// Create new chain for new message
+    		db[channelID] = markov.createChain();
+    	}
+    	/*
 	Now merge the message text into a possibly pre-existing chain
 	Note: for now, only look at messages that aren't blank and aren't commands
-    */
+    	*/
   	if(msgText && msgText.indexOf(client.config.prefix) !== 0) {
   		markov.mergeSentence(db[channelID], msgText);	
-    }
+    	}
 
 	// At this point, ignore messages not starting with the prefix '!'
 	if(message.content.indexOf(client.config.prefix) !== 0)
