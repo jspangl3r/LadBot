@@ -18,6 +18,6 @@ exports.run = (client, message, args) => {
 	    
 	  }
 	};
-	console.log(randLink);
+	
 	return message.channel.send(embed);
 }
