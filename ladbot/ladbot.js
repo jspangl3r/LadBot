@@ -41,12 +41,12 @@ module.exports.onMessage = function onMessage(client, message, db) {
 			if(response === -1) {
 				return message.channel.send("EMPTY CHAIN WARNING -- Let me listen for a little bit");
 			}
-			// Return good response!
-		    return message.channel.send(response);
+		    	// Return good response!
+		    	return message.channel.send(response);
 		}
 		else {
-			// Create chain on no data
-			db[channelID] = markov.createChain();
+		    //Create chain on no data
+		    db[channelID] = markov.createChain();
 		    return message.channel.send("NO CHAIN FOR THIS MESSAGE -- Let me listen for a little bit");
 		}
 	}
