@@ -14,6 +14,7 @@ the data I need from one http request. What I did was the following:
 */
 
 exports.run = (client, message, args) => {
+	let Discord = require("Discord.js");
 	let https = require('https');
 
 	// Need this for the first http request
@@ -59,35 +60,29 @@ exports.run = (client, message, args) => {
 			});
 			// Here we get the juicy commit information and build the embed
 			response.on('end', () => {
+				// Setup info. for the embed
 				let repoURL = "https://github.com/jspangled/LadBot"; 
 				let dataJ = JSON.parse(data);
 				msgText = dataJ.message;
 				commitURL = dataJ.html_url;
 				commitDate = new Date(dataJ.author.date);
-				// Now, finally setup discord embed message
-				let embed = {
-			    	"embed": {
-				    "title": "**Recent updates (click me for more details):** ",
-				    "description": "```" + msgText + "```",
-				    "timestamp": commitDate,
-				    "url": commitURL,
-				    "color": 16777215,
-				    "thumbnail": {
-				      "url": client.config.projectPicURL
-				    },
-				    "footer": {
-				      "icon_url": client.config.ladbotPicURL,
-				      "text": "Update released on"
-				    },
-				    "fields": [
-				    	{
-				    		"name": "See more about this project at",
-				    		"value": "[the project page](" + repoURL + ")."
-				    	}
-				    ]
-				  }
-				};
-				return message.channel.send(embed);
+				// Choose a pretty random color
+				let color = Math.floor((Math.random()*16777214)+1);
+				
+				// Lastly, setup the rich embed
+				let embed = new Discord.RichEmbed()
+					.setTitle("**Recent updates (click me for more details):**")
+					.setURL(commitURL)
+					.setDescription("```" + msgText + "```")
+					.setColor(color)
+					.setThumbnail(client.config.projectPicURL)
+					.setFooter("Update release on", client.config.ladbotPicURL)
+					.setTimestamp(commitDate)
+					.addField("See more about this project at",
+							  "[the project page](" + repoURL + ").");
+				
+				// Send!
+				return message.channel.send({embed});
 			});
 		}
 		// Start second request
