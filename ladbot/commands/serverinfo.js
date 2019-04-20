@@ -30,7 +30,7 @@ exports.run = (client, message, args) => {
 	// Could probably do this in a cleaner way
 	channels.forEach(function(c) {
 		if(c.type === "voice") {
-			voiceChannels++;
+			voiceChannels;
 		}
 		else if(c.type === "text") {
 			textChannels++;

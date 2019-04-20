@@ -3,11 +3,16 @@ Will post a random anime-esque imgur/tenor link to the server.
 */
 
 exports.run = (client, message, args) => {
-	const animeLinks = client.config.animeLinks;
-	let randLink = animeLinks[Math.floor(Math.random() * animeLinks.length)];
+	const fs = require("fs");
+
+	// Get the animelinks array from the config file, then get a random link
+	const animelinks = JSON.parse(fs.readFileSync(client.config.animelinks));
+	let randLink = animelinks[Math.floor(Math.random() * animelinks.length)];
+	
+	// Create embed!
 	let embed = {
     	"embed": {
-	    "title": "A bitch:",
+	    "title": "A bitch for you (ﾉ>ω<)ﾉ :｡･::･ﾟ’★,｡･::･ﾟ’☆",
 	    "color": 16761035,
 	    "image": {
 	      "url": randLink

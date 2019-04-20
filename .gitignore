@@ -2,9 +2,14 @@
 node_modules/
 config.json
 db.json
+animelinks.json
 .DS_Store
 ladbot/.idea/
 ladbot/node_modules/
 ladbot/config.json
 ladbot/db.json
+ladbot/animelinks.json
 ladbot/.DS_Store
+database/db.json
+database/animelinks.json
+database/.DS_Store

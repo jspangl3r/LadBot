@@ -10,14 +10,18 @@ const config = require("./config.json");
 const ladbot = require("./ladbot.js");
 const client = new Discord.Client();
 
-// Make sure config is attached to client so it is accessible everywhere
+/*
+Make sure config is attached to client so it is accessible everywhere.
+Also, setup a count to determine when to auto-restart the bot.
+*/
+let count = 0;
+const RESTART_AT = 5;	
 client.config = config;
 
 // Load up markov database
 let db = { };
 try {
-	let fileContents = fs.readFileSync(config.database);
-	db = JSON.parse(fileContents);
+	db = JSON.parse(fs.readFileSync(config.database));
 	console.log("Database loaded.");
 }
 catch(err) {
@@ -28,15 +32,24 @@ catch(err) {
 Setup functions to manage the JSON database saving
 These functions can be modified to setup auto-save intervals to your liking
 */
+function restart() {
+	client.destroy();
+	client.login(config.token);
+	console.log("Bot has been restarted.\n");
+}
 function save() {
-	let fileContents = JSON.stringify(db);
-	fs.writeFileSync(config["database"], fileContents);
+	fs.writeFileSync(config["database"], JSON.stringify(db));
 	console.log("Database has been saved.");
-
 }
 function saveTimer() {
 	save();
 	setTimeout(saveTimer, config["auto-save-interval"]*1000);
+	count++;
+
+	// Check to see if we should restart
+	if(count == RESTART_AT) {
+		restart();
+	}
 }
 if(config["auto-save"]) {
 	console.log("Auto save is on.");
