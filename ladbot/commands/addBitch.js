@@ -18,7 +18,7 @@ exports.run = (client, message, args) => {
 		return message.reply(ERROR);
 	}
 
-	// Make sure only Travis is adding 
+	// Make sure only Travis and Jackson can add
 	let authorID = message.author.id;
 	let travID = client.config.travID;
 	let jackID = client.config.jackID;
