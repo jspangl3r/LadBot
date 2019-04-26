@@ -14,7 +14,7 @@ const client = new Discord.Client();
 Make sure config is attached to client so it is accessible everywhere.
 Also, setup a count to determine when to auto-restart the bot.
 */
-let count = 0;
+let count = 0;		// TODO: check to see if this is actually working??
 const RESTART_AT = 5;	
 client.config = config;
 
@@ -48,6 +48,7 @@ function saveTimer() {
 
 	// Check to see if we should restart
 	if(count == RESTART_AT) {
+		count = 0; 	
 		restart();
 	}
 }

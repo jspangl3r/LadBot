@@ -14,8 +14,8 @@ the data I need from one http request. What I did was the following:
 */
 
 exports.run = (client, message, args) => {
-	let Discord = require("Discord.js");
-	let https = require('https');
+	const Discord = require("Discord.js");
+	const https = require("https");
 
 	// Need this for the first http request
 	let options1 = {
@@ -30,6 +30,7 @@ exports.run = (client, message, args) => {
 	let urlText = "https://api.github.com/repos/jspangled/LadBot/git/commits/";
 	let callback1 = (response) => {
 		let data = '';
+		// Compile data as we get it
 		response.on('data', (chunk) => {
 			data += chunk;	
 		});
