@@ -1,3 +1,7 @@
+/*
+Fetches an urban dictionary definition for a given word.
+User can select from 1-10 different definitions for that word.
+*/
 exports.run = (client, message, args) => {
 	const Discord = require("Discord.js");
 	const https = require("https");
@@ -6,21 +10,29 @@ exports.run = (client, message, args) => {
 	if(!args[0]) {
 		return message.reply("Please enter a term to search for and also a definition choice from 1 - 10.");
 	}
-	// Check for definition choice
+
+	/* 
+	Due to the nature of the commands parser in ladbot.js, form the searched
+	term from the entire message's content.
+	Concurrently, check for the definition # (default to 0).
+	*/
+	const cmdPart = "!urban";
+	let search = "";
 	let num;
-	if(args[1]) {
-		num = args[1]-1;
+	let loopAll = args.length+1;
+	let splitMsg = message.content.split(' ');
+	if(Number.isInteger(parseInt(args[args.length-1]))) {
+		loopAll -= 1;
+		num = args[args.length-1]-1;
 	}
 	else {
 		num = 0;
 	}
-
-	/* 
-	Due to the nature of the commands parser in ladbot.js, form the searched
-	term from the entire message's content
-	*/
-	const cmdPart = "!urban";
-	let search = message.content.split(' ')[1];
+	// Build up search terms.
+	for(let i = 1; i < loopAll; i++) {
+		search += splitMsg[i] + "%20";
+	}
+	search = search.slice(0, search.length-3);
 
 	// Using the search term, we can now do an HTTP request
 	let options = {
@@ -66,5 +78,11 @@ exports.run = (client, message, args) => {
 		});
 	}
 	// Call request
-	let request = https.request(options, callback).end();
+	try {
+		let request = https.request(options, callback).end();
+	}
+	catch(err) {
+		return message.channel.send("Couldn't find a definition for that term.");
+	}
+
 }

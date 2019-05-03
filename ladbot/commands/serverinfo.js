@@ -1,5 +1,3 @@
-// TODO fix "0 voicechannels" bug
-
 /*
 Provides detailed information of the server from which the bot is
 correspondingly residing on when invoked.
