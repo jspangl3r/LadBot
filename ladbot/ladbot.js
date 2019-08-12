@@ -51,21 +51,21 @@ module.exports.onMessage = function onMessage(client, message, db) {
 		}
 	}
 
-	// Check for offensive message
-	let splits = message.content.toLowerCase().split(/ +/g);
-	let badWord = client.config.badWord;
-	for(let i = 0; i < splits.length; i++) {
-		let word = splits[i];
+	// Check for offensive message - REMOVED because it very bad 
+	// let splits = message.content.toLowerCase().split(/ +/g);
+	// let badWord = client.config.badWord;
+	// for(let i = 0; i < splits.length; i++) {
+	// 	let word = splits[i];
 		
-		// front of word
-		if(word.slice(0, 3) === badWord) {
-			return message.reply("<:bruh:517226415725346827>");
-		}
-		// back of word
-		else if(word.slice(word.length-3, word.length) === badWord) {
-			return message.reply("<:bruh:517226415725346827>");
-		}
-	}		
+	// 	// front of word
+	// 	if(word.slice(0, 3) === badWord) {
+	// 		return message.reply("<:bruh:517226415725346827>");
+	// 	}
+	// 	// back of word
+	// 	else if(word.slice(word.length-3, word.length) === badWord) {
+	// 		return message.reply("<:bruh:517226415725346827>");
+	// 	}
+	// }		
 
 	// Check for Matt message hehe
 	if(message.author.id === client.config.mattID) {
@@ -77,18 +77,18 @@ module.exports.onMessage = function onMessage(client, message, db) {
 
     	// Train some messages for the bot!
    	let channelID = message.channel.id;
-    	let msgText = message.content;
-    	if(!db[channelID]) {
-    		// Create new chain for new message
-    		db[channelID] = markov.createChain();
-    	}
-    	/*
+    let msgText = message.content;
+    if(!db[channelID]) {
+    	// Create new chain for new message
+    	db[channelID] = markov.createChain();
+    }
+    /*
 	Now merge the message text into a possibly pre-existing chain
 	Note: for now, only look at messages that aren't blank and aren't commands
-    	*/
+    */
   	if(msgText && msgText.indexOf(client.config.prefix) !== 0) {
   		markov.mergeSentence(db[channelID], msgText);	
-    	}
+    }
 
 	// At this point, ignore messages not starting with the prefix '!'
 	if(message.content.indexOf(client.config.prefix) !== 0)

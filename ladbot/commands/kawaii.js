@@ -12,13 +12,13 @@ exports.run = (client, message, args) => {
 	// Create embed!
 	let embed = {
     	"embed": {
-	    "title": "A bitch for you (ﾉ>ω<)ﾉ :｡･::･ﾟ’★,｡･::･ﾟ’☆",
+	    "title": "So kawaii! (ﾉ>ω<)ﾉ :｡･::･ﾟ’★,｡･::･ﾟ’☆",
 	    "color": 16761035,
 	    "image": {
 	      "url": randLink
 	    },
 	    "footer": {
-	      "text": "Thank you Travis"
+	      "text": "Thank you Travis and Jackson (◠‿◠✿)"
 	    },
 	    
 	  }

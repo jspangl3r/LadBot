@@ -6,7 +6,7 @@ exports.run = (client, message, args) => {
 	const fs = require("fs");
 
 	// Snag the link, do some defensive programming!
-	const ERROR = "Make sure to provide a link that ends in .gif, .jpg, or .png"
+	const ERROR = "Make sure to provide a link that ends in .gif, .jpg, .jpeg, .png"
 	let link = args[0];
 	if(!link) {
 		return message.reply(ERROR);
@@ -14,7 +14,7 @@ exports.run = (client, message, args) => {
 
 	// Make sure link ends in either .gif, .jpg, or .png
 	let end = link.slice(link.length-4, link.length).trim();
-	if( !(end === ".gif" || end === ".jpg" || end === ".png") ) {
+	if( !(end === ".gif" || end === ".jpg" || end === ".png" || end === ".jpeg") ) {
 		return message.reply(ERROR);
 	}
 
