@@ -3,7 +3,7 @@ exports.run = (client, message, args) => {
 	const quoteHelp = require("../quoteHelp.js");
 
 	// Get quotes array
-	let arr = client.config.quotes;
+	let arr = JSON.parse(fs.readFileSync(client.config.quotes));
 
 	// Get quote and break it up into relevant parts
 	let quoteArr = arr[Math.floor(Math.random() * arr.length)].split("-");

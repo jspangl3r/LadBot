@@ -68,7 +68,7 @@ exports.run = (client, message, args) => {
 				.setTitle("Defintion " + (num+1) + " of 10 - " + "\"" + d.word + "\":")
 				.setDescription(d.definition.replace(/\[|\]/g, ''))
 				.setColor(1975097)
-				.setThumbnail(client.config.urbanPicURL)
+				.setThumbnail(JSON.parse(fs.readFileSync(client.config.projectpics))["urbanPicURL"])
 				.addField("Author: ", d.author)
 				.addField(":thumbsup: ", d.thumbs_up, true)
 				.addField(":thumbsdown: ", d.thumbs_down, true)

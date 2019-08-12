@@ -86,7 +86,7 @@ client.login(config.token);
 // On login
 client.on("ready", () => {
 	console.log("Logged into discord!");
-	let customActivities = config.customActivities;
+	let customActivities = JSON.parse(fs.readFileSync(client.config.customActivities));
 	let randStatus = customActivities[Math.floor(Math.random() * customActivities.length)];
 	client.user.setActivity(randStatus);
 });

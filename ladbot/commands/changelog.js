@@ -76,8 +76,8 @@ exports.run = (client, message, args) => {
 					.setURL(commitURL)
 					.setDescription("```" + msgText + "```")
 					.setColor(color)
-					.setThumbnail(client.config.projectPicURL)
-					.setFooter("Update release on", client.config.ladbotPicURL)
+					.setThumbnail(JSON.parse(fs.readFileSync(client.config.projectpics))["projectPicURL"])
+					.setFooter("Update release on", JSON.parse(fs.readFileSync(client.config.projectpics))["ladbotPicURL"])
 					.setTimestamp(commitDate)
 					.addField("See more about this project at",
 							  "[the project page](" + repoURL + ").");
