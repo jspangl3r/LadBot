@@ -5,6 +5,7 @@ User can select from 1-10 different definitions for that word.
 exports.run = (client, message, args) => {
 	const Discord = require("Discord.js");
 	const https = require("https");
+	const fs = require("fs");
 
 	// Make sure a term is given
 	if(!args[0]) {

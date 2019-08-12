@@ -22,7 +22,6 @@ exports.run = (client, message, args) => {
 	let usertag = user.tag;
 	let nickname = gm.nickname;
 	
-	
 	// Get status stuff
 	let status = user.presence.status;
 	let statusText = "";

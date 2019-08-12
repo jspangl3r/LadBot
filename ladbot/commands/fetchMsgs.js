@@ -18,7 +18,7 @@ exports.run = (client, message, args) => {
 
 	// Setup the counter, some recent message ID, and the new database
 	let counter = 0;	
-	let msgID = 563505299734921247;
+	let msgID = 585972737915224067;
 	let db = { };
 	async.whilst(
 		// We're going to grab the first 300k messages to start things off

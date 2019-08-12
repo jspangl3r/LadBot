@@ -1,6 +1,7 @@
 exports.run = (client, message, args) => {
 	const Discord = require("Discord.js");
-	const quoteHelp = require("../quoteHelp.js");
+	const quoteHelp = require("./quoteHelp.js");
+	const fs = require("fs");
 
 	// Get quotes array
 	let arr = JSON.parse(fs.readFileSync(client.config.quotes));

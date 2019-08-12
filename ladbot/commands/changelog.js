@@ -16,6 +16,7 @@ the data I need from one http request. What I did was the following:
 exports.run = (client, message, args) => {
 	const Discord = require("Discord.js");
 	const https = require("https");
+	const fs = require("fs");
 
 	// Need this for the first http request
 	let options1 = {
