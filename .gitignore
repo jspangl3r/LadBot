@@ -7,9 +7,5 @@ quotes.json
 .DS_Store
 ladbot/.idea/
 ladbot/node_modules/
-ladbot/data/config.json
-ladbot/data/customActivities
-ladbot/data/db.json
-ladbot/data/animelinks.json
-ladbot/data/quotes.json
+ladbot/data/
 ladbot/.DS_Store
