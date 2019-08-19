@@ -17,3 +17,7 @@ While mainly written for customized usage on my friends' Discord server, the bot
 
 * **userinfo.js** - fetches general user data and their relative server data about a user (if no argument is specified, the user defaults to the message's author), such as their nicknamek presence status, Discord join date, relative Discord channel join date, etc.
 
+* **markov.js** - (Not written by me, see below) file responsible for handling markov-related bot activities (responding to mentions in the server). Creates and organizes a second-order markov chain and by using this chain, generates messages from this chain. Note that while this is used as a chatbot, whatever messages the user sends in the mention to the bot aren't actually read nor do they impact what the bot generates from the chain. This is something I hope to update in the future.
+
+## A Thanks
+to Ethan Witherington for allowing me to use his **markov** code. You can find his account at https://github.com/Navigatron/mimic
