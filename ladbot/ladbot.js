@@ -28,7 +28,7 @@ module.exports.onMessage = function onMessage(client, message, db) {
 	let botMention = client.config.botMentionID;
 	const prefixMention = message.content.slice(0, botMention.length+1).trim();
 	if(prefixMention === botMention) {
-		let msg = message.content.slice(botMention.length+1);
+		let msg = message.content.slice(botMention.length+1); // This is never actually used to generate a more relevant message!
 		
 		// Deal with empty message
 		if(!msg)
