@@ -19,12 +19,12 @@ exports.run = (client, message, args) => {
     // For HTTP request #1 - getting recent video
     let options1 = {
          host: 'www.googleapis.com',
-         path: '/youtube/v3/search?key=AIzaSyD8KPq9x4zwXk6kPZZ3uFdHYEL61PlqfaU&channelId=UCNRqzTdFiMfxWmgsTHwDjxQ&part=snippet,id&order=date&maxResults=1',
+         path: '/youtube/v3/search?key=' + client.config.youtubeAPIKey + '&channelId=UCNRqzTdFiMfxWmgsTHwDjxQ&part=snippet,id&order=date&maxResults=1',
          method: 'GET'
      };
     let options2 = {
         host: 'www.googleapis.com',
-        path: '/youtube/v3/playlists?part=snippet&channelId=UCNRqzTdFiMfxWmgsTHwDjxQ&key=AIzaSyD8KPq9x4zwXk6kPZZ3uFdHYEL61PlqfaU',
+        path: '/youtube/v3/playlists?part=snippet&channelId=UCNRqzTdFiMfxWmgsTHwDjxQ&key=' + client.config.youtubeAPIKey,
         method: 'GET'
     };
 
