@@ -1,5 +1,6 @@
 {
     "projectPicURL" : "https://raw.githubusercontent.com/jspangled/LadBot/master/ladbot/data/images/projectPic.jpg",
     "ladbotPicURL" : "https://raw.githubusercontent.com/jspangled/LadBot/master/ladbot/data/images/ladbotPic.png",
-    "urbanPicURL" : "https://raw.githubusercontent.com/jspangled/LadBot/master/ladbot/data/images/urban.png"   
+    "urbanPicURL" : "https://raw.githubusercontent.com/jspangled/LadBot/master/ladbot/data/images/urban.png",
+    "ytPicURL" : "https://raw.githubusercontent.com/jspangled/LadBot/master/ladbot/data/images/ytPic.png" 
 }
