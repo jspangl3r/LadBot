@@ -4,7 +4,7 @@ by default the author of the method call.
 */
 
 exports.run = (client, message, args) => {
-	const Discord = require("Discord.js");
+	const Discord = require("discord.js");
 	var user, gm;
 
 	// If no arg is provided, just use the author
@@ -17,11 +17,11 @@ exports.run = (client, message, args) => {
 		user = message.mentions.users.first();
 		gm = message.guild.member(user);
 	}
-	
+
 	// Get relevant attributes, first get some name info.
 	let usertag = user.tag;
 	let nickname = gm.nickname;
-	
+
 	// Get status stuff
 	let status = user.presence.status;
 	let statusText = "";
@@ -38,8 +38,8 @@ exports.run = (client, message, args) => {
 		case "dnd":
 			statusText = "Do not message this person!";
 			break;
-	}	
-	
+	}
+
 	// Calculate some interesting date stuff
 	let joinedDiscordDate = user.createdAt;
 	let joinedDiscordStr = user.createdAt.toDateString();
@@ -54,7 +54,7 @@ exports.run = (client, message, args) => {
 	let joinedDiff = Math.abs(nowMS-joinedMS);
 	createdDays = Math.round(createdDiff/ONE_DAY);
 	joinedDays = Math.round(joinedDiff/ONE_DAY);
-	
+
 	// Get role information
 	let roles = gm.roles.array().slice(1);	// Avoid @everyone role
 	let rolesText = "";

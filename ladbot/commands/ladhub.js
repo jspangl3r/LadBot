@@ -1,13 +1,12 @@
 /*
-Creates a visualization of the current youtube videos present on our 
+Creates a visualization of the current youtube videos present on our
 youtube channel that've been made throughout the years
 
-
+WIP
 */
 
-
 exports.run = (client, message, args) => {
-	const Discord = require("Discord.js");
+	const Discord = require("discord.js");
 	const https = require("https");
 	const fs = require("fs");
 
@@ -15,7 +14,7 @@ exports.run = (client, message, args) => {
     if(args[0] === 'h') {
         return message.channel.send("!ladhub [h (help) or p (list playlists)]");
     }
-    
+
     // For HTTP request #1 - getting recent video
     let options1 = {
          host: 'www.googleapis.com',
@@ -33,7 +32,7 @@ exports.run = (client, message, args) => {
 		let data = '';
 		// Compile data as we get it
 		response.on('data', (chunk) => {
-			data += chunk;	
+			data += chunk;
 		});
         response.on('end', () => {
             let recentVidJ = JSON.parse(data)["items"][0];
@@ -46,13 +45,13 @@ exports.run = (client, message, args) => {
                 .addBlankField()
                 .addField("Most recent video:", '['  + '"' + recentVidJ.snippet.title + '"' + ']' +
                         "("  + "https://www.youtube.com/watch?v=" + recentVidJ.id.videoId + ")" +
-                         " : published on " + new Date(recentVidJ.snippet.publishedAt).toDateString())        
+                         " : published on " + new Date(recentVidJ.snippet.publishedAt).toDateString())
                 .setImage(recentVidJ.snippet.thumbnails.high.url)
                 .setFooter("Description: " + recentVidJ.snippet.description);
 
             nextHttpRequest(recentVidE);
         });
- 
+
     }
     // Call request1
     try {
@@ -70,7 +69,7 @@ exports.run = (client, message, args) => {
             let data = '';
             // Compile data as we get it
             response.on('data', (chunk) => {
-                data += chunk;	
+                data += chunk;
             });
             response.on('end', () => {
                 return message.channel.send({embed:recentVidE});
@@ -82,7 +81,7 @@ exports.run = (client, message, args) => {
             let request2 = https.request(options2, callback2).end();
         }
         catch(err) {
-            console.log(error);
+            console.log(err);
         }
     }
 }
