@@ -3,15 +3,16 @@ Fetches an urban dictionary definition for a given word.
 User can select from 1-10 different definitions for that word.
 */
 exports.run = (client, message, args) => {
-	const Discord = require("Discord.js");
+	const Discord = require("discord.js");
 	const https = require("https");
+	const fs = require("fs");
 
 	// Make sure a term is given
 	if(!args[0]) {
 		return message.reply("Please enter a term to search for and also a definition choice from 1 - 10.");
 	}
 
-	/* 
+	/*
 	Due to the nature of the commands parser in ladbot.js, form the searched
 	term from the entire message's content.
 	Concurrently, check for the definition # (default to 0).
@@ -50,7 +51,7 @@ exports.run = (client, message, args) => {
 		response.on('end', () => {
 			/*
 			The retrieved data object should be a JSON with an attached array to it
-			containing a list of definition JSON objects. 
+			containing a list of definition JSON objects.
 			*/
 			let list = JSON.parse(data).list;
 
@@ -62,7 +63,7 @@ exports.run = (client, message, args) => {
 				defs[i] = list[i];
 			}
 			let d = list[num];
-			
+
 			// Using these JSONs, lets build something cool
 			let embed = new Discord.RichEmbed()
 				.setTitle("Defintion " + (num+1) + " of 10 - " + "\"" + d.word + "\":")
@@ -73,7 +74,7 @@ exports.run = (client, message, args) => {
 				.addField(":thumbsup: ", d.thumbs_up, true)
 				.addField(":thumbsdown: ", d.thumbs_down, true)
 				.addField("Example: ", d.example.replace(/\[|\]/g, ''), true)
-				
+
 			return message.channel.send({embed});
 		});
 	}

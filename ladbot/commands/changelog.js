@@ -4,7 +4,7 @@ Discord embeded message.
 
 Due to the nature of github's api, I couldn't find a way to get all of
 the data I need from one http request. What I did was the following:
-1) The first http request gets the repo's master branch information, 
+1) The first http request gets the repo's master branch information,
    which contains a URL to the most recent commit of this branch.
    From this, I grabbed the commit's ID at the end of the URL
 2) Using the commit ID, the second http request gets specific info.
@@ -14,8 +14,9 @@ the data I need from one http request. What I did was the following:
 */
 
 exports.run = (client, message, args) => {
-	const Discord = require("Discord.js");
+	const Discord = require("discord.js");
 	const https = require("https");
+	const fs = require("fs");
 
 	// Need this for the first http request
 	let options1 = {
@@ -24,7 +25,7 @@ exports.run = (client, message, args) => {
 		method: 'GET',
 		headers: {'user-agent': 'node.js'}
 	};
-	
+
 	// Setup function for first http request
 	let commitID;
 	let urlText = "https://api.github.com/repos/jspangled/LadBot/git/commits/";
@@ -32,18 +33,18 @@ exports.run = (client, message, args) => {
 		let data = '';
 		// Compile data as we get it
 		response.on('data', (chunk) => {
-			data += chunk;	
+			data += chunk;
 		});
 		// Here we can grab the commit ID and call the next request
 		response.on('end', () => {
 			commitID = JSON.parse(data).object.url.slice(urlText.length);
-			
+
 			// Call next function with commitID
 			nextRequstCall();
 		});
 	}
 	// Actually call first http request
-	let request1 = https.request(options1, callback1).end();	
+	let request1 = https.request(options1, callback1).end();
 
 	// Setup function for second http request
 	let nextRequstCall = () => {
@@ -62,14 +63,14 @@ exports.run = (client, message, args) => {
 			// Here we get the juicy commit information and build the embed
 			response.on('end', () => {
 				// Setup info. for the embed
-				let repoURL = "https://github.com/jspangled/LadBot"; 
+				let repoURL = "https://github.com/jspangled/LadBot";
 				let dataJ = JSON.parse(data);
 				msgText = dataJ.message;
 				commitURL = dataJ.html_url;
 				commitDate = new Date(dataJ.author.date);
 				// Choose a pretty random color
 				let color = Math.floor((Math.random()*16777214)+1);
-				
+
 				// Lastly, setup the rich embed
 				let embed = new Discord.RichEmbed()
 					.setTitle("**Recent updates (click me for more details):**")
@@ -81,7 +82,7 @@ exports.run = (client, message, args) => {
 					.setTimestamp(commitDate)
 					.addField("See more about this project at",
 							  "[the project page](" + repoURL + ").");
-				
+
 				// Send!
 				return message.channel.send({embed});
 			});

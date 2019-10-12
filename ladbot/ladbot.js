@@ -27,7 +27,7 @@ module.exports.onMessage = function onMessage(client, message, db) {
 	let botMention = client.config.botMentionID;
 	const prefixMention = message.content.slice(0, botMention.length+1).trim();
 	if(prefixMention === botMention) {
-		let msg = message.content.slice(botMention.length+1);
+		let msg = message.content.slice(botMention.length+1); // This is never actually used to generate a more relevant message!
 		
 		// Deal with empty message
 		if(!msg)
@@ -76,18 +76,18 @@ module.exports.onMessage = function onMessage(client, message, db) {
 
     	// Train some messages for the bot!
    	let channelID = message.channel.id;
-    let msgText = message.content;
-    if(!db[channelID]) {
-    	// Create new chain for new message
-    	db[channelID] = markov.createChain();
-    }
-    /*
-	Now merge the message text into a possibly pre-existing chain
-	Note: for now, only look at messages that aren't blank and aren't commands
-    */
-  	if(msgText && msgText.indexOf(client.config.prefix) !== 0) {
-  		markov.mergeSentence(db[channelID], msgText);	
-    }
+	let msgText = message.content;
+	if(!db[channelID]) {
+		// Create new chain for new message
+		db[channelID] = markov.createChain();
+	}
+	/*
+	 Now merge the message text into a possibly pre-existing chain
+	 Note: for now, only look at messages that aren't blank and aren't commands
+	*/
+	if(msgText && msgText.indexOf(client.config.prefix) !== 0) {
+		markov.mergeSentence(db[channelID], msgText);	
+	}
 
 	// At this point, ignore messages not starting with the prefix '!'
 	if(message.content.indexOf(client.config.prefix) !== 0)

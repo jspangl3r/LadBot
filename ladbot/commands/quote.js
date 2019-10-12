@@ -1,6 +1,7 @@
 exports.run = (client, message, args) => {
-	const Discord = require("Discord.js");
-	const quoteHelp = require("../quoteHelp.js");
+	const Discord = require("discord.js");
+	const quoteHelp = require("./quoteHelp.js");
+	const fs = require("fs");
 
 	// Get quotes array
 	let arr = JSON.parse(fs.readFileSync(client.config.quotes));
@@ -9,7 +10,7 @@ exports.run = (client, message, args) => {
 	let quoteArr = arr[Math.floor(Math.random() * arr.length)].split("-");
 	let quoteText = quoteArr[0].trim();
 	let quoteAuth = quoteArr[1].trim();
-	
+
 	// Format text if needed
 	let txt = "*" + quoteHelp.getParagraph(quoteText.split(" "), 25) + "*";
 
@@ -19,7 +20,7 @@ exports.run = (client, message, args) => {
 		.setDescription(txt)
 		.setColor(color)
 		.setFooter("- " + quoteAuth)
-	
+
 	// Ship.
 	return message.channel.send({embed});
 }

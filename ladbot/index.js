@@ -6,7 +6,7 @@ Infrastructure file that sets up the bot.
 const Discord = require("discord.js");
 const Enmap = require("enmap");
 const fs = require("fs");
-const config = require("./config.json");
+const config = require("./data/config.json");
 const ladbot = require("./ladbot.js");
 const client = new Discord.Client();
 

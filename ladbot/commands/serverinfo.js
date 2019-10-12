@@ -4,13 +4,13 @@ correspondingly residing on when invoked.
 */
 
 exports.run = (client, message, args) => {
-	const Discord = require("Discord.js");
+	const Discord = require("discord.js");
 
 	// Get relevant attributes
 	let server = message.guild;
 	let name = server.name;
 	let dictator = server.owner.user.tag;
-	
+
 	// Calculate some interesting date stuff
 	let createdDate = server.createdAt;
 	let createdStr = server.createdAt.toDateString();
@@ -19,10 +19,10 @@ exports.run = (client, message, args) => {
 	let nowMS = Date.now();
 	let diff = Math.abs(nowMS-createdMS);
 	let days = Math.round(diff/ONE_DAY);
-	
+
 	// Get region info.
 	let region = server.region;
-	
+
 	// Get number of types of channels
 	let channels = server.channels.array();
 	let voiceChannels = 0;
@@ -35,10 +35,10 @@ exports.run = (client, message, args) => {
 		else if(c.type === "text") {
 			textChannels++;
 		}
-	}); 
-	
+	});
+
 	let roles = server.roles.array().length;
-	
+
 	// Get number of online members
 	let members = server.members.array();
 	let totalMembers = server.memberCount;
@@ -49,7 +49,7 @@ exports.run = (client, message, args) => {
 			onlineMembers++;
 		}
 	});
-	
+
 	// Get server ID and icon info.
 	let id = server.id;
 	let iconURL = server.iconURL;
@@ -58,9 +58,9 @@ exports.run = (client, message, args) => {
 	let color = Math.floor((Math.random()*16777214)+1);
 
 	// Start building the embed
-	let embed = new Discord.RichEmbed() 
+	let embed = new Discord.RichEmbed()
 		.setTitle(name)
-		.setDescription("Around since " + createdStr + 
+		.setDescription("Around since " + createdStr +
 						" (" + days + " days ago!)")
 		.setThumbnail(iconURL)
 		.setColor(color)
