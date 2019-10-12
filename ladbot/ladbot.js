@@ -12,11 +12,10 @@ Each time a message in a text channel is sent, the bot will read it, where
 
 Current features:
 	
-		1) Reply with a unique markov chain message upon being mentioned
-		2) Reply when an offensive message is read
-			NOTE: the code for this actually stinks and should be better 
-		3) Possibly reply (???!) when Matt says something\
-		4) Load a custom command 
+	1) Reply with a unique markov chain message upon being mentioned
+	3) Possibly reply (???!) when Matt says something\
+	4) Load a custom command 
+	
 */
 module.exports.onMessage = function onMessage(client, message, db) {
 
