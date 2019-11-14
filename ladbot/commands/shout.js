@@ -10,5 +10,6 @@ exports.run = (client, message,args) => {
 
     let msg = "";
     args.forEach(a => msg += a + " ");
+    message.channel.send("Shouting to the channel...");
     return client.channels.get(client.config.youngladsID).send(msg);
 }
