@@ -18,6 +18,11 @@ Current features:
 	
 */
 module.exports.onMessage = function onMessage(client, message, db) {
+	// Export a message to the discord
+	// if (!message.author.bot) {	
+	// 	let msg = message.author.username + ": " + message.content;
+	// 	client.channels.get(client.config.msgOutputID).send(msg);
+	// }
 
 	// Ignore all bots
 	if(message.author.bot)

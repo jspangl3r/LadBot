@@ -64,6 +64,11 @@ exports.run = (client, message, args) => {
 			}
 			let d = list[num];
 
+			// Make sure stuff exists before creating embed
+			if (d.definition.length > 250 || !d.author || !d.thumbs_up || !d.thumbs_down)
+				return message.channel.send("Unable to find parameters for that definition, " +
+				                            "please try a different word.");
+
 			// Using these JSONs, lets build something cool
 			let embed = new Discord.RichEmbed()
 				.setTitle("Defintion " + (num+1) + " of 10 - " + "\"" + d.word + "\":")
