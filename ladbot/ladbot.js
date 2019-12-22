@@ -45,8 +45,8 @@ module.exports.onMessage = function onMessage(client, message, db) {
 			if(response === -1) {
 				return message.channel.send("EMPTY CHAIN WARNING -- Let me listen for a little bit");
 			}
-		    	// Return good response!
-		    	return message.channel.send(response);
+		    // Return good response!
+		    return message.channel.send(response);
 		}
 		else {
 		    //Create chain on no data
