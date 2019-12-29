@@ -55,6 +55,7 @@ module.exports.onMessage = function onMessage(client, message, db) {
 		}
 	}
 
+
 	// Check for offensive message - REMOVED because it very bad 
 	// let splits = message.content.toLowerCase().split(/ +/g);
 	// let badWord = client.config.badWord;

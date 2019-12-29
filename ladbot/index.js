@@ -91,7 +91,7 @@ client.on("ready", () => {
 	client.user.setActivity(randStatus);
 });
 
-// On a read message in the chat, do something!
+// On a read message in the chat, do something
 client.on("message", (message) => {
 	ladbot.onMessage(client, message, db);
 });
