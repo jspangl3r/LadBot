@@ -54,6 +54,7 @@ exports.run = (client, message, args) => {
 			containing a list of definition JSON objects.
 			*/
 			let list = JSON.parse(data).list;
+			console.log(list);
 
 			/*
 			Create array of 10 definitions, then grab the one the user requested.
@@ -84,11 +85,10 @@ exports.run = (client, message, args) => {
 		});
 	}
 	// Call request
-	try {
+	//try {
 		let request = https.request(options, callback).end();
-	}
-	catch(err) {
-		return message.channel.send("Couldn't find a definition for that term.");
-	}
-
+	//}
+	//catch(err) {
+	//	return message.channel.send("Couldn't find a definition for that term.");
+	//}
 }

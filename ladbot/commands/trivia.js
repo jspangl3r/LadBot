@@ -159,5 +159,5 @@ function gameOver(scores) {
 }
 
 function getQuestions(cat) {
-
+    //const file = yaml.safeLoad(fs.readFileSync('./data/trivia/' + ))
 }
