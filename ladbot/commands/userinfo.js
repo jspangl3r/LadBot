@@ -18,6 +18,10 @@ exports.run = (client, message, args) => {
 		gm = message.guild.member(user);
 	}
 
+	if( !(user && user.tag) ) {
+		return message.channel.send("Could not find user!");
+	}
+
 	// Get relevant attributes, first get some name info.
 	let usertag = user.tag;
 	let nickname = gm.nickname;
@@ -33,7 +37,7 @@ exports.run = (client, message, args) => {
 			statusText = "MIA in offline status.";
 			break;
 		case "idle":
-			statusText = "Passed out in idle status.";
+			statusText = "KO'd in away status.";
 			break;
 		case "dnd":
 			statusText = "Do not message this person!";

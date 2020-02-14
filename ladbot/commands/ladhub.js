@@ -35,21 +35,22 @@ exports.run = (client, message, args) => {
 			data += chunk;
 		});
         response.on('end', () => {
-            let recentVidJ = JSON.parse(data)["items"][0];
-            let recentVidE = new Discord.RichEmbed()
-                .setColor("#c4302b")
-                .setDescription("```" + "The Young Lads Youtube stuff" + "```")
-                .setThumbnail(JSON.parse(fs.readFileSync(client.config.projectpics))["ytPicURL"])
-                .addBlankField()
-                .addField("Usage:", "How to use this thing, command parameters, etc.")
-                .addBlankField()
-                .addField("Most recent video:", '['  + '"' + recentVidJ.snippet.title + '"' + ']' +
-                        "("  + "https://www.youtube.com/watch?v=" + recentVidJ.id.videoId + ")" +
-                         " : published on " + new Date(recentVidJ.snippet.publishedAt).toDateString())
-                .setImage(recentVidJ.snippet.thumbnails.high.url)
-                .setFooter("Description: " + recentVidJ.snippet.description);
+            // let recentVidJ = JSON.parse(data)["items"][0];
+            // let recentVidE = new Discord.RichEmbed()
+            //     .setColor("#c4302b")
+            //     .setDescription("```" + "The Young Lads Youtube stuff" + "```")
+            //     .setThumbnail(JSON.parse(fs.readFileSync(client.config.projectpics))["ytPicURL"])
+            //     .addBlankField()
+            //     .addField("Usage:", "How to use this thing, command parameters, etc.")
+            //     .addBlankField()
+            //     .addField("Most recent video:", '['  + '"' + recentVidJ.snippet.title + '"' + ']' +
+            //             "("  + "https://www.youtube.com/watch?v=" + recentVidJ.id.videoId + ")" +
+            //              " : published on " + new Date(recentVidJ.snippet.publishedAt).toDateString())
+            //     .setImage(recentVidJ.snippet.thumbnails.high.url)
+            //     .setFooter("Description: " + recentVidJ.snippet.description);
 
-            nextHttpRequest(recentVidE);
+            // nextHttpRequest(recentVidE);
+            return message.channel.send("Not done yet! ~:)");
         });
 
     }

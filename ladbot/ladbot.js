@@ -8,35 +8,24 @@ const markov = require("./markov.js");
 /*
 The bread and butter method of this bot.
 Each time a message in a text channel is sent, the bot will read it, where
-	this function decides what to do with that message.
+this function decides what to do with that message.
 
 Current features:
-	
-	1) Reply with a unique markov chain message upon being mentioned
-	3) Possibly reply (???!) when Matt says something\
-	4) Load a custom command 
+
+1) Reply with a unique markov chain message upon being mentioned
+2) Possibly reply (???!) when Matt says something\
+3) Load a custom command 
 	
 */
 module.exports.onMessage = function onMessage(client, message, db) {
-	// Export a message to the discord
-	// if (!message.author.bot) {	
-	// 	let msg = message.author.username + ": " + message.content;
-	// 	client.channels.get(client.config.msgOutputID).send(msg);
-	// }
-
 	// Ignore all bots
 	if(message.author.bot)
 		return;
 
 	// Check to see if the bot was mentioned
-	let botMention = client.config.botMentionID;
-	const prefixMention = message.content.slice(0, botMention.length+1).trim();
-	if(prefixMention === botMention) {
-		let msg = message.content.slice(botMention.length+1); // This is never actually used to generate a more relevant message!
-		
-		// Deal with empty message
-		if(!msg)
-			return message.reply("Why u be saying nothing to me, b?");
+	if(message.content.includes(client.config.botMentionID)) {
+		// Currently this is never actually used to generate a more relevant message!
+		// Just say anything to any type of mention now (add AI in future??)
 
 		// Invoke markov - generate and send an epic response
 		let channelID = message.channel.id;
@@ -45,7 +34,7 @@ module.exports.onMessage = function onMessage(client, message, db) {
 			if(response === -1) {
 				return message.channel.send("EMPTY CHAIN WARNING -- Let me listen for a little bit");
 			}
-		    // Return good response!
+		    // Return good response!@
 		    return message.channel.send(response);
 		}
 		else {
@@ -53,24 +42,7 @@ module.exports.onMessage = function onMessage(client, message, db) {
 		    db[channelID] = markov.createChain();
 		    return message.channel.send("NO CHAIN FOR THIS MESSAGE -- Let me listen for a little bit");
 		}
-	}
-
-
-	// Check for offensive message - REMOVED because it very bad 
-	// let splits = message.content.toLowerCase().split(/ +/g);
-	// let badWord = client.config.badWord;
-	// for(let i = 0; i < splits.length; i++) {
-	// 	let word = splits[i];
-		
-	// 	// front of word
-	// 	if(word.slice(0, 3) === badWord) {
-	// 		return message.reply("<:bruh:517226415725346827>");
-	// 	}
-	// 	// back of word
-	// 	else if(word.slice(word.length-3, word.length) === badWord) {
-	// 		return message.reply("<:bruh:517226415725346827>");
-	// 	}
-	// }		
+	}		
 
 	// Check for Matt message hehe
 	if(message.author.id === client.config.mattID) {
@@ -80,7 +52,7 @@ module.exports.onMessage = function onMessage(client, message, db) {
 		}
 	}
 
-    	// Train some messages for the bot!
+    // Train some messages for the bot!
    	let channelID = message.channel.id;
 	let msgText = message.content;
 	if(!db[channelID]) {
