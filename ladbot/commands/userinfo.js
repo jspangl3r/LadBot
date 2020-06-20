@@ -8,7 +8,7 @@ exports.run = (client, message, args) => {
 	var user, gm;
 
 	// If no arg is provided, just use the author
-	if(!args[0]) {
+	if (!args[0]) {
 		user = message.author;
 		gm = message.guild.member(user);
 	}
@@ -18,7 +18,7 @@ exports.run = (client, message, args) => {
 		gm = message.guild.member(user);
 	}
 
-	if( !(user && user.tag) ) {
+	if (!(user && user.tag)) {
 		return message.channel.send("Could not find user!");
 	}
 
@@ -29,7 +29,7 @@ exports.run = (client, message, args) => {
 	// Get status stuff
 	let status = user.presence.status;
 	let statusText = "";
-	switch(status) {
+	switch (status) {
 		case "online":
 			statusText = "Chilling in online status.";
 			break;
@@ -50,26 +50,26 @@ exports.run = (client, message, args) => {
 	let joinedServerDate = gm.joinedAt;
 	let joinedServerStr = gm.joinedAt.toDateString();
 	let createdDays, joinedDays;
-	const ONE_DAY = 1000*60*60*24;
+	const ONE_DAY = 1000 * 60 * 60 * 24;
 	let nowMS = Date.now();
 	let createdMS = joinedDiscordDate.getTime();
 	let joinedMS = joinedServerDate.getTime();
-	let createdDiff = Math.abs(nowMS-createdMS);
-	let joinedDiff = Math.abs(nowMS-joinedMS);
-	createdDays = Math.round(createdDiff/ONE_DAY);
-	joinedDays = Math.round(joinedDiff/ONE_DAY);
+	let createdDiff = Math.abs(nowMS - createdMS);
+	let joinedDiff = Math.abs(nowMS - joinedMS);
+	createdDays = Math.round(createdDiff / ONE_DAY);
+	joinedDays = Math.round(joinedDiff / ONE_DAY);
 
 	// Get role information
 	let roles = gm.roles.array().slice(1);	// Avoid @everyone role
 	let rolesText = "";
-	if(roles.length < 1) {
+	if (roles.length < 1) {
 		rolesText = "None";
 	}
 	else {
 		let role;
-		for(let i = 0; i < roles.length; i++) {
+		for (let i = 0; i < roles.length; i++) {
 			role = roles[i].name;
-			if(i != roles.length-1) {
+			if (i != roles.length - 1) {
 				rolesText += role + ", ";
 			}
 			else {
@@ -90,13 +90,13 @@ exports.run = (client, message, args) => {
 		.setColor(color)
 		.setFooter("User ID: " + id)
 		.addField("Joined Discord on", joinedDiscordStr
-				  + "\n(" + createdDays + " days ago!)", false)
+			+ "\n(" + createdDays + " days ago!)", false)
 		.addField("Joined this server on", joinedServerStr
-			      + "\n(" + joinedDays + " days ago!)", false)
+			+ "\n(" + joinedDays + " days ago!)", false)
 		.addField("Roles", rolesText, false);
 
 	// Set nickname if it exists
-	if(nickname){
+	if (nickname) {
 		embed.setTitle(usertag + " aka " + nickname);
 	}
 	else {
@@ -104,5 +104,5 @@ exports.run = (client, message, args) => {
 	}
 
 	// I ship it.
-	return message.channel.send({embed});
+	return message.channel.send({ embed });
 }

@@ -23,7 +23,7 @@ exports.run = (client, message, args) => {
 		host: 'api.github.com',
 		path: '/repos/jspangled/LadBot/git/refs/heads/master',
 		method: 'GET',
-		headers: {'user-agent': 'node.js'}
+		headers: { 'user-agent': 'node.js' }
 	};
 
 	// Setup function for first http request
@@ -52,8 +52,8 @@ exports.run = (client, message, args) => {
 		let options2 = {
 			host: 'api.github.com',
 			path: '/repos/jspangled/LadBot/git/commits/' + commitID,
-			method : 'GET',
-			headers: {'user-agent': 'node.js'}
+			method: 'GET',
+			headers: { 'user-agent': 'node.js' }
 		};
 		let callback2 = (response) => {
 			let data = '';
@@ -69,7 +69,7 @@ exports.run = (client, message, args) => {
 				commitURL = dataJ.html_url;
 				commitDate = new Date(dataJ.author.date);
 				// Choose a pretty random color
-				let color = Math.floor((Math.random()*16777214)+1);
+				let color = Math.floor((Math.random() * 16777214) + 1);
 
 				// Lastly, setup the rich embed
 				let embed = new Discord.RichEmbed()
@@ -81,10 +81,10 @@ exports.run = (client, message, args) => {
 					.setFooter("Update release on", JSON.parse(fs.readFileSync(client.config.projectpics))["ladbotPicURL"])
 					.setTimestamp(commitDate)
 					.addField("See more about this project at",
-							  "[the project page](" + repoURL + ").");
+						"[the project page](" + repoURL + ").");
 
 				// Send!
-				return message.channel.send({embed});
+				return message.channel.send({ embed });
 			});
 		}
 		// Start second request

@@ -6,7 +6,7 @@ exports.run = (client, message, args) => {
     const async = require("async");
     const fs = require("fs");
 
-    if(message.author.id != client.config.ownerID) {
+    if (message.author.id != client.config.ownerID) {
         return message.reply(" nice try, lol :sunglasses:");
     }
 
@@ -25,7 +25,7 @@ exports.run = (client, message, args) => {
         // Grab the last 100 messages from the updating message ID
         function fetch(callback) {
             message.guild.channels.get('96420935283793920').fetchMessages({ limit: 100, before: fetchMsgID })
-                .then(function(messages) {
+                .then(function (messages) {
                     let msg, msgText, msgAuthor;
                     let msgArr = messages.array();
                     // Update msgID with the last message in this block
@@ -33,26 +33,26 @@ exports.run = (client, message, args) => {
                     let timeOne, timeTwo;
 
                     // Loop over each fetched message (100 per fetch)
-                    for(let x = 0; x < msgArr.length; x++) {
+                    for (let x = 0; x < msgArr.length; x++) {
                         msg = msgArr[x];
                         msgText = msg.content;
                         msgAuthor = msg.author;
 
                         // Only proceed further if valid message
-                        if( !(msgText && msgText.charAt(0) !== '!') ) {
+                        if (!(msgText && msgText.charAt(0) !== '!')) {
                             continue;
                         }
 
                         // See if new conversation should be made
-                        if(convoText.length != 0) {
+                        if (convoText.length != 0) {
                             timeOne = msg.createdAt.getMinutes();
                             timeTwo = convoObj[0].createdAt.getMinutes();   // Most recent message in current conversation
                             // If time difference <= 5, add this message to the current conversation array
-                            if(Math.abs(timeOne - timeTwo) <= 5) {
+                            if (Math.abs(timeOne - timeTwo) <= 5) {
                                 console.log("Pushing another message onto this conversation");
                                 console.log("--------------------------------------------");
                                 // See if this message is a consecutive message from the same author. If so, clump the message together with the previous one
-                                if(msg.author === convoObj[0].author) {
+                                if (msg.author === convoObj[0].author) {
                                     convoText[0] = msg + ". " + convoText[0];
                                     convoObj.unshift(msg);
                                 }
@@ -80,7 +80,7 @@ exports.run = (client, message, args) => {
                             console.log("--------------------------------------------");
                             convoText.unshift(msg.content);
                             convoObj.unshift(msg);
-                        }   
+                        }
                     }
                 })
                 .catch(console.error);
@@ -90,7 +90,7 @@ exports.run = (client, message, args) => {
         },
         // On completion
         function callback(err) {
-            if(err) {
+            if (err) {
                 console.log(err);
                 return;
             }

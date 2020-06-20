@@ -8,13 +8,13 @@ exports.run = (client, message, args) => {
 	// Snag the link, do some defensive programming!
 	const ERROR = "Make sure to provide a link that ends in .gif, .jpg, .jpeg, .png"
 	let link = args[0];
-	if(!link) {
+	if (!link) {
 		return message.reply(ERROR);
 	}
 
 	// Make sure link ends in either .gif, .jpg, or .png
-	let end = link.slice(link.length-4, link.length).trim();
-	if( !(end === ".gif" || end === ".jpg" || end === ".png" || end === ".jpeg") ) {
+	let end = link.slice(link.length - 4, link.length).trim();
+	if (!(end === ".gif" || end === ".jpg" || end === ".png" || end === ".jpeg")) {
 		return message.reply(ERROR);
 	}
 
@@ -22,14 +22,14 @@ exports.run = (client, message, args) => {
 	let authorID = message.author.id;
 	let travID = client.config.travID;
 	let jackID = client.config.jackID;
-	if( !(authorID == travID || authorID == jackID) ) {
+	if (!(authorID == travID || authorID == jackID)) {
 		return message.reply("You are not Travis or possibly Jackson :rage:");
 	}
 
 	// See if this bitch has already been added
 	let arr = JSON.parse(fs.readFileSync(client.config.animelinks));
-	for(let i = 0; i < arr.length; i++) {
-		if(link === arr[i]) {
+	for (let i = 0; i < arr.length; i++) {
+		if (link === arr[i]) {
 			return message.reply("It appears this bitch has already been added.");
 		}
 	}

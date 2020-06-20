@@ -8,16 +8,16 @@ exports.run = (client, message, args) => {
     let keys = Array.from(client.commands.keys());
     let msg = "";
     let i = 1;
-    keys.forEach( (key) => {
+    keys.forEach((key) => {
         msg += i + ". " + key + "\n";
         i++;
     });
 
-    let color = Math.floor((Math.random()*16777214)+1);
-    let embed = new Discord.RichEmbed() 
+    let color = Math.floor((Math.random() * 16777214) + 1);
+    let embed = new Discord.RichEmbed()
         .setTitle("**LadBot Commands:**")
         .setDescription("```" + msg + "```")
-        .setColor(color)    
+        .setColor(color)
 
-    return message.channel.send({embed});
+    return message.channel.send({ embed });
 }

@@ -19,12 +19,12 @@ exports.run = (client, message, args) => {
 	let txt = "*" + quoteHelp.getParagraph(quoteText.split(" "), 25) + "*";
 
 	// Build discord embed
-	let color = Math.floor((Math.random()*16777214)+1);
+	let color = Math.floor((Math.random() * 16777214) + 1);
 	let embed = new Discord.RichEmbed()
 		.setDescription(txt)
 		.setColor(color)
 		.setFooter("- " + quoteAuth)
 
 	// Ship.
-	return message.channel.send({embed});
+	return message.channel.send({ embed });
 }

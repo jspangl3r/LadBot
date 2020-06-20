@@ -8,7 +8,7 @@
  */
 function extraSpace(S, M, i, j) {
 	let e = M - j + i;
-	for(let x = i; x < j+1; x++) {
+	for (let x = i; x < j + 1; x++) {
 		e -= S[x].length;
 	}
 	return e;
@@ -19,7 +19,7 @@ function extraSpace(S, M, i, j) {
  */
 function badnessLine(S, M, i, j) {
 	let e = extraSpace(S, M, i, j);
-	if(e < 0) {
+	if (e < 0) {
 		return Infinity;
 	}
 	else {
@@ -39,19 +39,19 @@ function minBadDynamicChoice(S, M) {
 	let c = new Array(n);
 
 	// Compute all badness values for possible i to j word combinations in S
-	for(let i = 0; i < n; i++) {
-		for(let j = 0; j < n; j++) {
+	for (let i = 0; i < n; i++) {
+		for (let j = 0; j < n; j++) {
 			b[i][j] = badnessLine(S, M, i, j);
 		}
 	}
 
 	// Now find the correct word-line placement
-	for(let x = n-1; x >= 0; x--) {
-		m[x] = b[x][n-1];
+	for (let x = n - 1; x >= 0; x--) {
+		m[x] = b[x][n - 1];
 		c[x] = n;
-		for(let y = n-1; y > x; y--) {
-			if(m[x] > (m[y] + b[x][y-1])) {
-				m[x] = m[y] + b[x][y-1];
+		for (let y = n - 1; y > x; y--) {
+			if (m[x] > (m[y] + b[x][y - 1])) {
+				m[x] = m[y] + b[x][y - 1];
 				// Modify choice array here
 				c[x] = y;
 			}
@@ -72,10 +72,10 @@ function getParagraph(S, M) {
 	let i = 0;
 	let j = 0;
 	let n = S.length;
-	while(j < n) {
+	while (j < n) {
 		let s = "";
 		j = c[i];
-		for(let k = i; k < j; k++) {
+		for (let k = i; k < j; k++) {
 			s += S[k] + " ";
 		}
 		i = j;
@@ -86,5 +86,5 @@ function getParagraph(S, M) {
 
 // Declare exports
 module.exports = {
-    "getParagraph" : getParagraph
+	"getParagraph": getParagraph
 }

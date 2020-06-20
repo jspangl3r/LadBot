@@ -1,6 +1,6 @@
-/*
+/**
  Infrastructure file that sets up the bot.
-*/
+ */
 
 // Stuff we're gonna need
 const Discord = require("discord.js");
@@ -10,28 +10,28 @@ const config = require("./data/config.json");
 const ladbot = require("./ladbot.js");
 const client = new Discord.Client();
 
-/*
+/**
  Make sure config is attached to client so it is accessible everywhere.
  Also, setup a count to determine when to auto-restart the bot.
-*/
-let count = 0;		
-const RESTART_AT = 5;	
+ */
+let count = 0;
+const RESTART_AT = 5;
 client.config = config;
 
 // Load up markov database
-let db = { };
+let db = {};
 try {
 	db = JSON.parse(fs.readFileSync(config.database));
 	console.log("Database loaded.");
 }
-catch(err) {
+catch (err) {
 	console.log(err);
 }
 
-/*
+/**
  Setup functions to manage the JSON database saving
  These functions can be modified to setup auto-save intervals to your liking
-*/
+ */
 function restart() {
 	client.destroy();
 	client.login(config.token);
@@ -43,18 +43,18 @@ function save() {
 }
 function saveTimer() {
 	save();
-	setTimeout(saveTimer, config["auto-save-interval"]*1000);
+	setTimeout(saveTimer, config["auto-save-interval"] * 1000);
 	count++;
 
 	// Check to see if we should restart
-	if(count == RESTART_AT) {
-		count = 0; 	
+	if (count == RESTART_AT) {
+		count = 0;
 		restart();
 	}
 }
-if(config["auto-save"]) {
+if (config["auto-save"]) {
 	console.log("Auto save is on.");
-	setTimeout(saveTimer, config["auto-save-interval"]*1000);
+	setTimeout(saveTimer, config["auto-save-interval"] * 1000);
 }
 
 // Load all command js files
@@ -73,10 +73,10 @@ fs.readdir("./commands/", (err, files) => {
 // Start Musicbot stuff
 client.music = require("discord.js-musicbot-addon");
 client.music.start(client, {
-	youtubeKey: config.youtubeKey, 
-	anyoneCanSkip : true,
-	musicPresence : true,
-	clearPresence : true
+	youtubeKey: config.youtubeKey,
+	anyoneCanSkip: true,
+	musicPresence: true,
+	clearPresence: true
 });
 
 // Login bot to discord

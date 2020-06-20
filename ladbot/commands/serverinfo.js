@@ -14,11 +14,11 @@ exports.run = (client, message, args) => {
 	// Calculate some interesting date stuff
 	let createdDate = server.createdAt;
 	let createdStr = server.createdAt.toDateString();
-	const ONE_DAY = 1000*60*60*24;
+	const ONE_DAY = 1000 * 60 * 60 * 24;
 	let createdMS = createdDate.getTime();
 	let nowMS = Date.now();
-	let diff = Math.abs(nowMS-createdMS);
-	let days = Math.round(diff/ONE_DAY);
+	let diff = Math.abs(nowMS - createdMS);
+	let days = Math.round(diff / ONE_DAY);
 
 	// Get region info.
 	let region = server.region;
@@ -28,11 +28,11 @@ exports.run = (client, message, args) => {
 	let voiceChannels = 0;
 	let textChannels = 0;
 	// Could probably do this in a cleaner way
-	channels.forEach(function(c) {
-		if(c.type === "voice") {
+	channels.forEach(function (c) {
+		if (c.type === "voice") {
 			voiceChannels++;
 		}
-		else if(c.type === "text") {
+		else if (c.type === "text") {
 			textChannels++;
 		}
 	});
@@ -44,8 +44,8 @@ exports.run = (client, message, args) => {
 	let totalMembers = server.memberCount;
 	let onlineMembers = 0;
 	// Could probably do this in a cleaner way
-	members.forEach(function(m) {
-		if(m.presence.status === "online") {
+	members.forEach(function (m) {
+		if (m.presence.status === "online") {
 			onlineMembers++;
 		}
 	});
@@ -55,13 +55,13 @@ exports.run = (client, message, args) => {
 	let iconURL = server.iconURL;
 
 	// Choose a pretty random color
-	let color = Math.floor((Math.random()*16777214)+1);
+	let color = Math.floor((Math.random() * 16777214) + 1);
 
 	// Start building the embed
 	let embed = new Discord.RichEmbed()
 		.setTitle(name)
 		.setDescription("Around since " + createdStr +
-						" (" + days + " days ago!)")
+			" (" + days + " days ago!)")
 		.setThumbnail(iconURL)
 		.setColor(color)
 		.setFooter("Server ID: " + id)
@@ -73,5 +73,5 @@ exports.run = (client, message, args) => {
 		.addField("Owner", dictator, false)
 
 	// Send that bad boy
-	return message.channel.send({embed});
+	return message.channel.send({ embed });
 }
