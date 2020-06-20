@@ -1,6 +1,6 @@
-/*
-Will create a custom, very angry, message composted of random strings.
-*/
+/**
+ Will create a custom, very angry, message composted of random strings.
+ */
 
 exports.run = (client, message, args) => {
 	var omgs = ["bro....", "jesus fucking christ...", "fucking shave flynn...",

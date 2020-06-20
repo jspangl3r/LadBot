@@ -1,3 +1,7 @@
+/**
+ * WIP feature to fetch estimated discord "conversations" based on some time interval. 
+ */
+
 exports.run = (client, message, args) => {
     const async = require("async");
     const fs = require("fs");

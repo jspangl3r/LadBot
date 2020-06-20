@@ -1,7 +1,7 @@
-/*
-Fetches an urban dictionary definition for a given word.
-User can select from 1-10 different definitions for that word.
-*/
+/**
+ Fetches an urban dictionary definition for a given word.
+ User can select from 1-10 different definitions for that word.
+ */
 exports.run = (client, message, args) => {
 	const Discord = require("discord.js");
 	const https = require("https");
@@ -13,10 +13,10 @@ exports.run = (client, message, args) => {
 	}
 
 	/*
-	Due to the nature of the commands parser in ladbot.js, form the searched
-	term from the entire message's content.
-	Concurrently, check for the definition # (default to 0).
-	*/
+	 Due to the nature of the commands parser in ladbot.js, form the searched
+	 term from the entire message's content.
+	 Concurrently, check for the definition # (default to 0).
+	 */
 	const cmdPart = "!urban";
 	let search = "";
 	let num = 0;
@@ -52,15 +52,15 @@ exports.run = (client, message, args) => {
 		});
 		// Get data we want and then build the embed
 		response.on('end', () => {
-			/*
-			The retrieved data object should be a JSON with an attached array to it
-			containing a list of definition JSON objects.
-			*/
+			/**
+			 The retrieved data object should be a JSON with an attached array to it
+			 containing a list of definition JSON objects.
+			 */
 			let list = JSON.parse(data).list;
 
-			/*
-			Create array of 10 definitions, then grab the one the user requested.
-			*/
+			/**
+			 Create array of 10 definitions, then grab the one the user requested.
+			 */
 			let defs = new Array(10);
 			for(let i = 0; i < 10; i++) {
 				defs[i] = list[i];

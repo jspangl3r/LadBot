@@ -1,3 +1,7 @@
+/**
+ * Sends one of the lads quotes to #yunglads text channel
+ */
+
 exports.run = (client, message, args) => {
 	const Discord = require("discord.js");
 	const quoteHelp = require("./quoteHelp.js");

@@ -1,6 +1,6 @@
-/*
-Will post a random anime-esque imgur/tenor link to the server.
-*/
+/**
+ Will post a random anime-esque imgur/tenor link to the server.
+ */
 
 exports.run = (client, message, args) => {
 	const fs = require("fs");

@@ -1,17 +1,17 @@
-/*
-Fetches the latest commit from this repository and messages it in a nice
-Discord embeded message.
+/**
+ Fetches the latest commit from this repository and messages it in a nice
+ Discord embeded message.
 
-Due to the nature of github's api, I couldn't find a way to get all of
-the data I need from one http request. What I did was the following:
-1) The first http request gets the repo's master branch information,
-   which contains a URL to the most recent commit of this branch.
-   From this, I grabbed the commit's ID at the end of the URL
-2) Using the commit ID, the second http request gets specific info.
-   regarding this commit, such as the commit's message, timestamp, etc.
-   (information I want). Using this information, I finally build and send
-   the discord embedded message.
-*/
+ Due to the nature of github's api, I couldn't find a way to get all of
+ the data I need from one http request. What I did was the following:
+ 1) The first http request gets the repo's master branch information,
+    which contains a URL to the most recent commit of this branch.
+    From this, I grabbed the commit's ID at the end of the URL
+ 2) Using the commit ID, the second http request gets specific info.
+    regarding this commit, such as the commit's message, timestamp, etc.
+    (information I want). Using this information, I finally build and send
+    the discord embedded message.
+ */
 
 exports.run = (client, message, args) => {
 	const Discord = require("discord.js");

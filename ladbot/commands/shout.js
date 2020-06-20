@@ -1,6 +1,6 @@
-/*
-Shouts to a very specific channel, given a message.
-*/
+/**
+ Shouts to a very specific channel, given a message.
+ */
 
 exports.run = (client, message,args) => {
     const Discord = require("discord.js");

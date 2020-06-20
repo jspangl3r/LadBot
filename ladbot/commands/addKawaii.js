@@ -1,6 +1,6 @@
-/*
-Adds a new anime-esque image to one of the bot's databases
-*/
+/**
+ Adds a new anime-esque image to one of the bot's databases
+ */
 
 exports.run = (client, message, args) => {
 	const fs = require("fs");

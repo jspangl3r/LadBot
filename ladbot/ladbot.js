@@ -1,5 +1,5 @@
 /*
-Responsible for dealing with message events as well as some markov stuff.
+ Responsible for dealing with message events as well as some markov stuff.
 */
 
 // We're gonna use this to handle markov chaining stuffs

@@ -1,9 +1,9 @@
-/*
-Creates a visualization of the current youtube videos present on our
-youtube channel that've been made throughout the years
+/** 
+ Creates a visualization of the current youtube videos present on our
+ youtube channel that've been made throughout the years
 
-WIP
-*/
+ WIP
+ */
 
 exports.run = (client, message, args) => {
 	const Discord = require("discord.js");

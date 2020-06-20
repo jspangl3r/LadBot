@@ -1,6 +1,6 @@
-/*
-Will change the bot's status to a random one.
-*/
+/**
+ Will change the bot's status to a random one.
+ */
 
 exports.run = (client, message, args) => {
 	const fs = require("fs");

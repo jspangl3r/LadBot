@@ -1,7 +1,7 @@
-/*
-Fetches userdata/server-member data regarding a certain user (if specified), or
-by default the author of the method call.
-*/
+/**
+ Fetches userdata/server-member data regarding a certain user (if specified), or
+ by default the author of the method call.
+ */
 
 exports.run = (client, message, args) => {
 	const Discord = require("discord.js");

@@ -1,6 +1,6 @@
-/*
-Will ping (mention) a user 10 times in an attempt to "wake" the user up.
-*/
+/**
+ Will ping (mention) a user 10 times in an attempt to "wake" the user up.
+ */
 
 exports.run = (client, message, args) => {
 	var user = args[0];

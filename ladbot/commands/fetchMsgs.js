@@ -1,16 +1,16 @@
-/*
-File used in populating the JSON database of old chat messages.
-Using a semi-recent chat message ID, will loop backwards and fetch 100 messages
-	at a time, until the specified counter is maxed.
-Each message grabbed is merged into the text channel's specifc markov master chain.
-*/
+/**
+ File used in populating the JSON database of old chat messages.
+ Using a semi-recent chat message ID, will loop backwards and fetch 100 messages
+ at a time, until the specified counter is maxed.
+ Each message grabbed is merged into the text channel's specifc markov master chain.
+ */
 
 exports.run = (client, message, args) => {
 	// We're going to need these
 	const async = require("async");
 	const fs = require("fs");
 	const markov = require("../markov.js");
-	const config = require("../config.json");
+	const config = require("../data/config.json");
 
 	if(message.author.id != config.ownerID) {
 		return message.reply(" nice try, lol :sunglasses:");

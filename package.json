@@ -1,30 +1,34 @@
 {
   "name": "ladbot",
   "version": "1.0.0",
-  "description": "The official YoungLads discord bot.",
+  "description": "![Bot image](https://github.com/jspangled/LadBot/blob/master/ladbot/data/images/projectPic.jpg?raw=true)",
   "main": "index.js",
+  "dependencies": {
+    "async": "^2.6.3",
+    "bufferutil": "^4.0.1",
+    "discord.js": "^11.5.1",
+    "discord.js-musicbot-addon": "^13.8.1",
+    "enmap": "^5.2.3",
+    "erlpack": "^0.1.3",
+    "js-yaml": "^3.13.1",
+    "node-fetch": "^2.6.0",
+    "node-opus": "^0.3.3",
+    "shuffle-array": "^1.0.1",
+    "sodium": "^3.0.2",
+    "uws": "^100.0.1"
+  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/JoshSpangler/LadBot.git"
+    "url": "git+https://github.com/jspangled/LadBot.git"
   },
-  "author": "Josh Spangler",
+  "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/JoshSpangler/LadBot/issues"
+    "url": "https://github.com/jspangled/LadBot/issues"
   },
-  "homepage": "https://github.com/JoshSpangler/LadBot#readme",
-  "dependencies": {
-    "async": "^2.6.2",
-    "bufferutil": "^4.0.1",
-    "discord.js": "^11.4.2",
-    "discord.js-musicbot-addon": "^13.5.1",
-    "enmap": "^4.8.2",
-    "erlpack": "^0.1.2",
-    "node-opus": "^0.3.1",
-    "sodium": "^3.0.2",
-    "uws": "^100.0.1"
-  }
+  "homepage": "https://github.com/jspangled/LadBot#readme"
 }

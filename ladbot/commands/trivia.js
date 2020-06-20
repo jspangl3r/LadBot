@@ -1,8 +1,8 @@
-/*
-Handles a game of trivia using Red-DiscordBot's trivia lists:
+/**
+ Handles a game of trivia using Red-DiscordBot's trivia lists:
 
-https://github.com/Cog-Creators/Red-DiscordBot
-*/
+ https://github.com/Cog-Creators/Red-DiscordBot
+ */
 
 const fs = require("fs");
 const yaml = require("js-yaml");
@@ -165,9 +165,9 @@ exports.run = (client, message, args) => {
     }
 }
 
-/*
-Simple function to display the scoreboard to the channel
-*/
+/**
+ Simple function to display the scoreboard to the channel
+ */
 function scoreBoard(scores, message) {
     let msg = "\n----------Scores----------\n";
     Object.keys(scores).forEach( (key) => {
@@ -178,10 +178,10 @@ function scoreBoard(scores, message) {
     return message.channel.send(msg);
 }
 
-/*
-Simple function to check the scores array for a winner
-Returns: a winner if found, undefined otherwise
-*/
+/**
+ Simple function to check the scores array for a winner
+ Returns: a winner if found, undefined otherwise
+ */
 function gameOver(scores) {
     let winner = undefined
     Object.keys(scores).forEach( (key) => {
@@ -194,10 +194,10 @@ function gameOver(scores) {
     return winner;
 }
 
-/*
-Simple function to allocate the questions dictionary with 
-some questions and answers
-*/
+/**
+ Simple function to allocate the questions dictionary with 
+ some questions and answers
+ */
 function getQuestions(cat, qsAs, qs) {
     const file = yaml.safeLoad(fs.readFileSync('./data/trivia/' + cat + ".yaml"));
     delete file["AUTHOR"];

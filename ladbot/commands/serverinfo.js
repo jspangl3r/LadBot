@@ -1,7 +1,7 @@
-/*
-Provides detailed information of the server from which the bot is
-correspondingly residing on when invoked.
-*/
+/**
+ Provides detailed information of the server from which the bot is
+ correspondingly residing on when invoked.
+ */
 
 exports.run = (client, message, args) => {
 	const Discord = require("discord.js");

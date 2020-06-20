@@ -1,7 +1,7 @@
-/*
-Returns a message to the channel containing all the commands
-currently present.
-*/
+/**
+ Returns a message to the channel containing all the commands
+ currently present.
+ */
 
 exports.run = (client, message, args) => {
     const Discord = require("discord.js");

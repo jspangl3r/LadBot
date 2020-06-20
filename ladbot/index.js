@@ -1,5 +1,5 @@
 /*
-Infrastructure file that sets up the bot.
+ Infrastructure file that sets up the bot.
 */
 
 // Stuff we're gonna need
@@ -11,8 +11,8 @@ const ladbot = require("./ladbot.js");
 const client = new Discord.Client();
 
 /*
-Make sure config is attached to client so it is accessible everywhere.
-Also, setup a count to determine when to auto-restart the bot.
+ Make sure config is attached to client so it is accessible everywhere.
+ Also, setup a count to determine when to auto-restart the bot.
 */
 let count = 0;		
 const RESTART_AT = 5;	
@@ -29,8 +29,8 @@ catch(err) {
 }
 
 /*
-Setup functions to manage the JSON database saving
-These functions can be modified to setup auto-save intervals to your liking
+ Setup functions to manage the JSON database saving
+ These functions can be modified to setup auto-save intervals to your liking
 */
 function restart() {
 	client.destroy();

@@ -1,11 +1,11 @@
-/*
-File responsible for paragraph formation from a string.
-Is used to support the !quote command (quote.js).
-*/
+/**
+ File responsible for paragraph formation from a string.
+ Is used to support the !quote command (quote.js).
+ */
 
-/*
-Computes the amount of spaces at the end of a line.
-*/
+/**
+ Computes the amount of spaces at the end of a line.
+ */
 function extraSpace(S, M, i, j) {
 	let e = M - j + i;
 	for(let x = i; x < j+1; x++) {
@@ -14,9 +14,9 @@ function extraSpace(S, M, i, j) {
 	return e;
 }
 
-/*
-Computes the "badness" of a line, determined by the number of extra spaces it has.
-*/
+/**
+ Computes the "badness" of a line, determined by the number of extra spaces it has.
+ */
 function badnessLine(S, M, i, j) {
 	let e = extraSpace(S, M, i, j);
 	if(e < 0) {
@@ -27,9 +27,9 @@ function badnessLine(S, M, i, j) {
 	}
 }
 
-/*
-Uses dynamic programming to compute the "minimum badness" array, which is used to build
-a formatted sequence of text (a paragraph using '\n') 
+/**
+ Uses dynamic programming to compute the "minimum badness" array, which is used to build
+ a formatted sequence of text (a paragraph using '\n') 
  */
 function minBadDynamicChoice(S, M) {
 	// Arrays: b = badness array, m = min array, c = choices array (to get final paragraph answer)
@@ -60,9 +60,9 @@ function minBadDynamicChoice(S, M) {
 	return c;
 }
 
-/*
-Using the dynamic programming solution, fetches the actual formatted text
-*/
+/**
+ Using the dynamic programming solution, fetches the actual formatted text
+  */
 function getParagraph(S, M) {
 	// Get choice array
 	let c = minBadDynamicChoice(S, M);
