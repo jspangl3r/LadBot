@@ -3,75 +3,73 @@
  correspondingly residing on when invoked.
  */
 
-exports.run = (client, message, args) => {
-	const Discord = require("discord.js");
+const Discord = require("discord.js");
 
-	// Get relevant attributes
-	let server = message.guild;
-	let name = server.name;
-	let dictator = server.owner.user.tag;
+exports.run = (client, message) => {
+  // Get relevant attributes
+  const server = message.guild;
+  const {name} = server;
+  const dictator = server.owner.user.tag;
 
-	// Calculate some interesting date stuff
-	let createdDate = server.createdAt;
-	let createdStr = server.createdAt.toDateString();
-	const ONE_DAY = 1000 * 60 * 60 * 24;
-	let createdMS = createdDate.getTime();
-	let nowMS = Date.now();
-	let diff = Math.abs(nowMS - createdMS);
-	let days = Math.round(diff / ONE_DAY);
+  // Calculate some interesting date stuff
+  const createdDate = server.createdAt;
+  const createdStr = server.createdAt.toDateString();
+  const ONE_DAY = 1000 * 60 * 60 * 24;
+  const createdMS = createdDate.getTime();
+  const nowMS = Date.now();
+  const diff = Math.abs(nowMS - createdMS);
+  const days = Math.round(diff / ONE_DAY);
 
-	// Get region info.
-	let region = server.region;
+  // Get region info.
+  const {region} = server;
 
-	// Get number of types of channels
-	let channels = server.channels.array();
-	let voiceChannels = 0;
-	let textChannels = 0;
-	// Could probably do this in a cleaner way
-	channels.forEach(function (c) {
-		if (c.type === "voice") {
-			voiceChannels++;
-		}
-		else if (c.type === "text") {
-			textChannels++;
-		}
-	});
+  // Get number of types of channels
+  const channels = server.channels.array();
+  let voiceChannels = 0;
+  let textChannels = 0;
+  // Could probably do this in a cleaner way
+  channels.forEach((c) => {
+    if (c.type === "voice") {
+      voiceChannels++;
+    } else if (c.type === "text") {
+      textChannels++;
+    }
+  });
 
-	let roles = server.roles.array().length;
+  const roles = server.roles.array().length;
 
-	// Get number of online members
-	let members = server.members.array();
-	let totalMembers = server.memberCount;
-	let onlineMembers = 0;
-	// Could probably do this in a cleaner way
-	members.forEach(function (m) {
-		if (m.presence.status === "online") {
-			onlineMembers++;
-		}
-	});
+  // Get number of online members
+  const members = server.members.array();
+  const totalMembers = server.memberCount;
+  let onlineMembers = 0;
+  // Could probably do this in a cleaner way
+  members.forEach((m) => {
+    if (m.presence.status === "online") {
+      onlineMembers++;
+    }
+  });
 
-	// Get server ID and icon info.
-	let id = server.id;
-	let iconURL = server.iconURL;
+  // Get server ID and icon info.
+  const {id} = server;
+  const {iconURL} = server;
 
-	// Choose a pretty random color
-	let color = Math.floor((Math.random() * 16777214) + 1);
+  // Choose a pretty random color
+  const color = Math.floor((Math.random() * 16777214) + 1);
 
-	// Start building the embed
-	let embed = new Discord.RichEmbed()
-		.setTitle(name)
-		.setDescription("Around since " + createdStr +
-			" (" + days + " days ago!)")
-		.setThumbnail(iconURL)
-		.setColor(color)
-		.setFooter("Server ID: " + id)
-		.addField("Region", region, false)
-		.addField("Users", onlineMembers + "/" + totalMembers, false)
-		.addField("Text Channels", textChannels, false)
-		.addField("Voice Channels", voiceChannels, false)
-		.addField("Roles", roles, false)
-		.addField("Owner", dictator, false)
+  // Start building the embed
+  const embed = new Discord.RichEmbed()
+      .setTitle(name)
+      .setDescription(`Around since ${createdStr} (${days} days ago!)`)
+      .setThumbnail(iconURL)
+      .setColor(color)
+      .setFooter(`Server ID: ${id}`)
+      .addField("Region", region, false)
+      .addField("Users", `${onlineMembers}/${totalMembers}`, false)
+      .addField("Text Channels", textChannels, false)
+      .addField("Voice Channels", voiceChannels, false)
+      .addField("Roles", roles, false)
+      .addField("Owner", dictator, false);
 
-	// Send that bad boy
-	return message.channel.send({ embed });
-}
+  // Send that bad boy
+  return message.channel.send({embed});
+};
