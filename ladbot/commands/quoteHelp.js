@@ -61,7 +61,7 @@ function minBadDynamicChoice(S, M) {
 
 /**
  Using the dynamic programming solution, fetches the actual formatted text
-  */
+ */
 function getParagraph(S, M) {
   // Get choice array
   const c = minBadDynamicChoice(S, M);

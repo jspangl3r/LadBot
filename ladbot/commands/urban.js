@@ -13,7 +13,7 @@ exports.run = (client, message, args) => {
     return message.reply("Please enter a term to search for and also a definition choice from 1 - 10.");
   }
 
-  /*
+  /**
 	 Due to the nature of the commands parser in ladbot.js, form the searched
 	 term from the entire message's content.
 	 Concurrently, check for the definition # (default to 0).
