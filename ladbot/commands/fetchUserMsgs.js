@@ -29,6 +29,7 @@ exports.run = (client, message, args) => {
   let counter = 0;
   let done = false;
   let msgID = 719216519996899420; // set this to a recent msg ID of target
+                                  // TODO find way to find this automatically.
   const userDB = [];
   async.whilst(
       /**
@@ -84,7 +85,7 @@ exports.run = (client, message, args) => {
           return;
         }
         // save to disk in gpt-2 format
-        const stream = fs.createWriteStream(`../learn/train_data/${name}.json`, {flags: "a"});
+        const stream = fs.createWriteStream(`../data/learn/train_data/${name}.json`, {flags: "a"});
         userDB.forEach((msg) => {
           stream.write(msg.content);
           stream.write("\n<|endoftext|>\n");

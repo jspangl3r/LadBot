@@ -16,6 +16,7 @@
         "require-jsdoc": "off",
         "valid-jsdoc": "off",
         "no-tabs": "off",
-        "brace-style": "off"
+        "brace-style": "off",
+        "indent": "off"
     }
 }

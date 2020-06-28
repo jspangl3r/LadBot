@@ -3,26 +3,24 @@
   "version": "1.0.0",
   "description": "![Bot image](https://github.com/jspangled/LadBot/blob/master/ladbot/data/images/projectPic.jpg?raw=true)",
   "main": "index.js",
-  "dependencies": {
-    "eslint": "^7.3.1",
-    "eslint-config-airbnb-base": "^14.2.0",
-    "eslint-config-google": "^0.14.0",
-    "eslint-config-standard": "^14.1.1",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-standard": "^4.0.1"
-  },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@discordjs/opus": "^0.3.2",
+    "async": "^3.2.0",
+    "discord.js": "^12.2.0",
+    "discord.js-musicbot-addon": "^13.9.1",
+    "enmap": "^5.3.1",
+    "shuffle-array": "^1.0.1"
+  },
+  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jspangled/LadBot.git"
   },
-  "author": "",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/jspangled/LadBot/issues"
   },
