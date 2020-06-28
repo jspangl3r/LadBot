@@ -60,7 +60,7 @@ module.exports.onMessage = function onMessage(client, message, db) {
   /**
    Now merge the message text into a possibly pre-existing chain
 	 Note: for now, only look at messages that aren't blank and aren't commands
-	*/
+	 */
   if (msgText && msgText.indexOf(client.config.prefix) !== 0) {
     markov.mergeSentence(db[channelID], msgText);
   }
