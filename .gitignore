@@ -9,3 +9,5 @@ ladbot/.idea/
 ladbot/node_modules/
 ladbot/data/
 ladbot/.DS_Store
+.vscode/
+learn/checkpoint/
