@@ -1,5 +1,5 @@
 /**
- * Add weed.
+ * Add tree.
  */
 
 const fs = require("fs")
