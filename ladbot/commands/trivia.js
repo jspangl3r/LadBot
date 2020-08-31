@@ -87,7 +87,7 @@ exports.run = (client, message, args) => {
 
         // Collect messages for 10 seconds
         const filter = (msg) => !msg.author.bot;
-        const collector = message.channel.createMessageCollector(filter, {time: 14000});
+        const collector = message.channel.createMessageCollector(filter, { time: 14000 });
         collector.on("collect", (msg) => {
           // Check for STOP_GAME condition
           if (msg.content === "STOP_GAME") {

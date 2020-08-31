@@ -4,6 +4,8 @@
 
 // We're gonna use this to handle markov chaining stuffs
 const markov = require("./markov.js");
+const fs = require("fs");
+
 
 /**
  The bread and butter method of this bot.
@@ -22,7 +24,7 @@ module.exports.onMessage = function onMessage(client, message, db) {
   if (message.author.bot) return;
 
   // Check to see if the bot was mentioned
-  if (message.content.includes(client.config.botMentionID)) {
+  if (message.content.includes(client.config.ids.botID)) {
     // Currently this is never actually used to generate a more relevant message!
     // Just say anything to any type of mention now (add AI in future??)
 
@@ -43,7 +45,7 @@ module.exports.onMessage = function onMessage(client, message, db) {
   }
 
   // Check for Matt message hehe
-  if (message.author.id === client.config.mattID) {
+  if (message.author.id === client.config.ids.mattID) {
     const rand = Math.floor(Math.random() * 100) + 1;
     if (rand === 1) {
       return message.channel.send(`Shut up, ${message.author}`);
@@ -78,6 +80,16 @@ module.exports.onMessage = function onMessage(client, message, db) {
   // If command doesn't exist, silently exit and do nothing
   if (!cmd) return;
 
-  // Otherwise, run the comand
-  cmd.run(client, message, args);
+  // Otherwise, try to run the comand
+  try {
+    cmd.run(client, message, args);
+  }
+  catch(e) {
+    console.error(e);
+    return message.channel.send("Caught error dawg :gFlush:");
+  }
 };
+
+function writeToMimic(currentMimic) {
+
+}

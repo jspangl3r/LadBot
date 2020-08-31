@@ -20,7 +20,7 @@ exports.run = (client, message) => {
 
   // Build discord embed
   const color = Math.floor((Math.random() * 16777214) + 1);
-  const embed = new Discord.RichEmbed()
+  const embed = new Discord.MessageEmbed()
       .setDescription(txt)
       .setColor(color)
       .setFooter(`- ${quoteAuth}`);

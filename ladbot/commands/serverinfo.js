@@ -24,7 +24,7 @@ exports.run = (client, message) => {
   const {region} = server;
 
   // Get number of types of channels
-  const channels = server.channels.array();
+  const channels = server.channels.cache.array();
   let voiceChannels = 0;
   let textChannels = 0;
   // Could probably do this in a cleaner way
@@ -36,10 +36,10 @@ exports.run = (client, message) => {
     }
   });
 
-  const roles = server.roles.array().length;
+  const roles = server.roles.cache.array().length;
 
   // Get number of online members
-  const members = server.members.array();
+  const members = server.members.cache.array();
   const totalMembers = server.memberCount;
   let onlineMembers = 0;
   // Could probably do this in a cleaner way
@@ -51,13 +51,13 @@ exports.run = (client, message) => {
 
   // Get server ID and icon info.
   const {id} = server;
-  const {iconURL} = server;
+  const iconURL = server.iconURL();
 
   // Choose a pretty random color
   const color = Math.floor((Math.random() * 16777214) + 1);
 
   // Start building the embed
-  const embed = new Discord.RichEmbed()
+  const embed = new Discord.MessageEmbed()
       .setTitle(name)
       .setDescription(`Around since ${createdStr} (${days} days ago!)`)
       .setThumbnail(iconURL)

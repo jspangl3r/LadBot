@@ -75,7 +75,7 @@ fs.readdir("./commands/", (err, files) => {
 client.music = require("discord.js-musicbot-addon");
 
 client.music.start(client, {
-  youtubeKey: config.youtubeKey,
+  youtubeKey: config.ids.youtubeKey,
   anyoneCanSkip: true,
   musicPresence: true,
   clearPresence: true,

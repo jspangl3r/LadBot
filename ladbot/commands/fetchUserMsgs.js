@@ -9,12 +9,13 @@ const async = require("async");
 
 exports.run = async (client, message, args) => {
   // Only run if me
-  if (message.author.id !== client.config.ownerID) {
+  if (message.author.id !== client.config.ids.ownerID) {
+    console.log(client.config.ids.ownerID);
     return message.reply(" nice try, lol :sunglasses:");
   }
 
   // get #yunglads channel
-  const yunglads = client.channels.cache.get(client.config.youngladsID);
+  const yunglads = client.channels.cache.get(client.config.ids.youngladsID);
 
   // some data on the user we're getting messages for
   // get non-#-non-space name.
@@ -26,19 +27,20 @@ exports.run = async (client, message, args) => {
    currently, there is no way to use the discord search bar (using FROM tag)
    via the discord js api (or discord api in general), so we'll have to
    manually filter messages like before.
+  
+   @args[1] - input oldest msg ID to start from, manually obtained
    */
   let counter = 0;
   let done = false;
-  let msgID = 214164257120583691; // set this to a recent msg ID of target
-                                  // TODO  find way to find this automatically.
+  let msgID = parseInt(args[1]);   
   const userDB = [];
-  console.log("Starting message collection for this user.");
+  message.channel.send(`Starting message collection for ${name}.`);
   async.whilst(
     /**
      grab as many messages as we can for a user.
-     it seems like most users on the lads server have no more than 80k.
+     set upper bound to a shitton of messages till we error out.
      */
-    function test(cb) { cb(null, counter < 10000 && done === false); },
+    function test(cb) { cb(null, counter < 100000 && done === false); },
     function iter(callback) {
       const options = {limit: 100, after: msgID};
       // fetch from our #yunglads channel
@@ -53,6 +55,7 @@ exports.run = async (client, message, args) => {
               for (let i = 0; i < msgArray.length; i++) {
                 const msg = msgArray[i];
                 // only continue if this is our guy.
+                // also do some filtering.
                 if (msg.author.id === authID && msg.content.charAt(0) !== "!"
                     && !msg.content.includes("https://")) {
                   // add if first message.
@@ -70,6 +73,7 @@ exports.run = async (client, message, args) => {
                 }
               }
             } catch (err) {
+              console.log(err);
               // at this point, notify that we're ready to save
               done = true;
             }
@@ -85,16 +89,18 @@ exports.run = async (client, message, args) => {
         console.log(err);
         return;
       }
-      // save to disk in gpt-2 format
-      const stream = fs.createWriteStream(`../ladbot/data/train/datasets/${name}.txt`, {flags: "a"});
+      // save to disk in gpt-2 format, as a .csv
+      message.channel.send(`Now writing messages to ${name}.csv..`);
+      const stream = fs.createWriteStream(`../ladbot/data/train/datasets/${name}.csv`);
       userDB.forEach((msg) => {
         // only add messages of 3 or more words
-        if (msg.content.split(" ").length > 2) {
-          stream.write(msg.content + "\n\n");
+        let content = msg.content.split("\n").join("");
+        if (content.split(" ").length > 0) {
+          stream.write(`${content}\n`);
         }
       });
       stream.end();
-      console.log("Saved this users messages.");
+      message.channel.send(`Saved ${name}.csv`);
     },
   );
 };

@@ -15,7 +15,7 @@ exports.run = (client, message) => {
   });
 
   const color = Math.floor((Math.random() * 16777214) + 1);
-  const embed = new Discord.RichEmbed()
+  const embed = new Discord.MessageEmbed()
       .setTitle("**LadBot Commands:**")
       .setDescription(`\`\`\`${msg}\`\`\``)
       .setColor(color);

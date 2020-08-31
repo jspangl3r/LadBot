@@ -60,8 +60,8 @@ exports.run = (client, message, args) => {
   const createdDays = Math.round(createdDiff / ONE_DAY);
   const joinedDays = Math.round(joinedDiff / ONE_DAY);
 
-  // Get role information
-  const roles = gm.roles.array().slice(1);	// Avoid @everyone role
+  // Get role information, filter out @everyone role.
+  const roles = gm.roles.cache.array().filter(role => role.toString() !== "@everyone");
   let rolesText = "";
   if (roles.length < 1) {
     rolesText = "None";
@@ -79,11 +79,11 @@ exports.run = (client, message, args) => {
 
   // Get ID, avatar, and color information
   const {id} = user;
-  const {avatarURL} = user;
+  const avatarURL = user.avatarURL();
   const color = gm.displayColor;
 
   // Start building an the embed
-  const embed = new Discord.RichEmbed()
+  const embed = new Discord.MessageEmbed()
       .setDescription(statusText)
       .setThumbnail(avatarURL)
       .setColor(color)

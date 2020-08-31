@@ -80,7 +80,7 @@ exports.run = (client, message, args) => {
       }
 
       // Using these JSONs, lets build something cool
-      const embed = new Discord.RichEmbed()
+      const embed = new Discord.MessageEmbed()
           .setTitle(`Defintion ${num + 1} of 10 - ` + `"${d.word}":`)
           .setDescription(d.definition.replace(/\[|\]/g, "").substring(0, 2048))
           .setColor(1975097)

@@ -20,9 +20,9 @@ exports.run = (client, message, args) => {
 
   // Make sure only Travis and Jackson can add
   const authorID = message.author.id;
-  const {travID} = client.config;
-  const {jackID} = client.config;
-  if (!(authorID === travID || authorID === jackID)) {
+  const trav = client.config.ids.travID;
+  const jack = client.config.ids.jackID;
+  if (!(authorID === trav || authorID === jack)) {
     return message.reply("You are not Travis or possibly Jackson :rage:");
   }
 
@@ -37,11 +37,12 @@ exports.run = (client, message, args) => {
   // Now update the animeLink json array in config file
   arr.push(link);
   fs.writeFileSync(client.config.animelinks, JSON.stringify(arr));
+  message.reply("Your bitch has been added, the bot will now restart.");
 
   // Now restart the bot to get updated file
   client.destroy();
   client.login(client.config.token);
   console.log("Bot has been restarted.\n");
 
-  return message.reply("Your bitch has been added, the bot will now restart.");
+  return;
 };

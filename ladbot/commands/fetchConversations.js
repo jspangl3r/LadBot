@@ -7,7 +7,7 @@ const fs = require("fs");
 
 exports.run = (client, message) => {
   // Only run if me
-  if (message.author.id !== client.config.ownerID) {
+  if (message.author.id !== client.config.ids.ownerID) {
     return message.reply(" nice try, lol :sunglasses:");
   }
 

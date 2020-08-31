@@ -73,7 +73,7 @@ exports.run = (client, message) => {
         const color = Math.floor((Math.random() * 16777214) + 1);
 
         // Lastly, setup the rich embed
-        const embed = new Discord.RichEmbed()
+        const embed = new Discord.MessageEmbed()
             .setTitle("**Recent updates (click me for more details):**")
             .setURL(commitURL)
             .setDescription(`\`\`\`${msgText}\`\`\``)
