@@ -1,5 +1,5 @@
 /**
- * Weed.
+ * Tree.
  */
 
 const fs = require("fs");
