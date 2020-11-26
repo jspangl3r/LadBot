@@ -6,6 +6,8 @@
 const markov = require("./markov.js");
 const fs = require("fs");
 
+// ladboi gpt-2 model.
+const ladboiDataset = JSON.parse(fs.readFileSync("./data/train/datasets/LadBoi/ladboi.json"));
 
 /**
  The bread and butter method of this bot.
@@ -13,43 +15,55 @@ const fs = require("fs");
  this function decides what to do with that message.
 
  Current features:
-
- 1) Reply with a unique markov chain message upon being mentioned
- 2) Possibly reply (???!) when Matt says something\
- 3) Load a command
+  1) Load a command.
+  2) If mentioned, reply with a generated gpt-2 model response 
+      (or with a markov chain generated sentence)
+  3) Possibly say shut up to our boy Matthew.
 
  */
 module.exports.onMessage = function onMessage(client, message, db) {
   // Ignore all bots
   if (message.author.bot) return;
 
-  // Check to see if the bot was mentioned
+  // Upon being mentioned
   if (message.content.includes(client.config.ids.botID)) {
-    // Currently this is never actually used to generate a more relevant message!
-    // Just say anything to any type of mention now (add AI in future??)
 
-    // Invoke markov - generate and send an epic response
-    const channelID = message.channel.id;
-    if (db[channelID]) {
-      const response = markov.generateSentence(db[channelID]);
-      if (response === -1) {
-        return message.channel.send("EMPTY CHAIN WARNING -- Let me listen for a little bit");
-      }
-      // Return good response!@
-      return message.channel.send(response);
-    }
+    // Invoke markov - generate and send an epic response - Disabled for now.
+    // const channelID = message.channel.id;
+    // if (db[channelID]) {
+    //   const response = markov.generateSentence(db[channelID]);
+    //   if (response === -1) {
+    //     return message.channel.send("EMPTY CHAIN WARNING -- Let me listen for a little bit");
+    //   }
+    //   // Return good response!@
+    //   return message.channel.send(response);
+    // }
 
-    // Create chain on no data
-    db[channelID] = markov.createChain();
-    return message.channel.send("NO CHAIN FOR THIS MESSAGE -- Let me listen for a little bit");
+    // Send back gpt-2 generated response.
+    const msg = ladboiDataset[Math.floor(Math.random() * ladboiDataset.length)];
+    return message.channel.send(msg);
   }
 
   // Check for Matt message hehe
   if (message.author.id === client.config.ids.mattID) {
-    const rand = Math.floor(Math.random() * 100) + 1;
-    if (rand === 1) {
+    if ((Math.floor(Math.random() * 100) + 1) === 1) {
       return message.channel.send(`Shut up, ${message.author}`);
     }
+  }
+
+  // 1% chance to reply to message with ladboiDataset.
+  if ((Math.floor(Math.random() * 100) + 1) === 1) {
+    // Send back gpt-2 generated response.
+    const msg = ladboiDataset[Math.floor(Math.random() * ladboiDataset.length)];
+    message.channel.reply(msg);
+
+    // Get a little spicy - possibly tell Matthew, out of Ladboi's own volition,
+    // to shutup (with another chance of 1%)
+    if ((Math.floor(Math.random() * 100) + 1) === 1) {
+      message.channel.send("ULTA OMEGA SHUTUP Mr. Matthew! :mattGASM:");
+    }
+
+    return;
   }
 
   // Train some messages for the bot!
@@ -67,7 +81,7 @@ module.exports.onMessage = function onMessage(client, message, db) {
     markov.mergeSentence(db[channelID], msgText);
   }
 
-  // At this point, ignore messages not starting with the prefix '!'
+  // At this point, ignore messages not starting with the prefix '.'
   if (message.content.indexOf(client.config.prefix) !== 0) return;
 
   // Separate message into args and command
@@ -89,7 +103,3 @@ module.exports.onMessage = function onMessage(client, message, db) {
     return message.channel.send("Caught error dawg :gFlush:");
   }
 };
-
-function writeToMimic(currentMimic) {
-
-}
