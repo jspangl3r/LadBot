@@ -9,7 +9,7 @@ const fs = require("fs");
 const config = require("./data/config.json");
 const ladbot = require("./ladbot.js");
 
-const client = new Discord.Client();
+const client = new Discord.Client({ ws: { properties: { $browser: "Discord iOS" } }});
 
 /**
  Make sure config is attached to client so it is accessible everywhere.
@@ -80,7 +80,7 @@ client.on("ready", () => {
   console.log("Logged into discord!");
   const customActivities = JSON.parse(fs.readFileSync(client.config.customActivities));
   const randStatus = customActivities[Math.floor(Math.random() * customActivities.length)];
-  client.user.setActivity(randStatus);
+  client.user.setActivity(randStatus, { type: 2 });
 });
 
 // On a read message in the chat, do something
