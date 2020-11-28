@@ -81,7 +81,7 @@ client.on("ready", () => {
   console.log("Logged into discord!");
   const customActivities = JSON.parse(fs.readFileSync(client.config.customActivities));
   const randStatus = customActivities[Math.floor(Math.random() * customActivities.length)];
-  client.user.setActivity(randStatus, { type: 2 });
+  client.user.setActivity(randStatus);
 });
 
 // On a read message in the chat, do something
