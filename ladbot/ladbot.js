@@ -55,7 +55,7 @@ module.exports.onMessage = function onMessage(client, message, db) {
   if ((Math.floor(Math.random() * 100) + 1) === 1) {
     // Send back gpt-2 generated response.
     const msg = ladboiDataset[Math.floor(Math.random() * ladboiDataset.length)];
-    message.channel.reply(msg);
+    message.reply(msg);
 
     // Get a little spicy - possibly tell Matthew, out of Ladboi's own volition,
     // to shutup (with another chance of 1%)
