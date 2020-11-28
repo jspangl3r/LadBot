@@ -51,7 +51,7 @@ module.exports.onMessage = function onMessage(client, message, db) {
     }
   }
 
-  // 1% chance to reply to message with ladboiDataset...
+  // 1% chance to reply to message with ladboiDataset.
   if ((Math.floor(Math.random() * 100) + 1) === 1) {
     // Send back gpt-2 generated response.
     const msg = ladboiDataset[Math.floor(Math.random() * ladboiDataset.length)];
