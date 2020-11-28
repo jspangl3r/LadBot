@@ -9,6 +9,7 @@ const fs = require("fs");
 const config = require("./data/config.json");
 const ladbot = require("./ladbot.js");
 
+// Add mobile icon to discord status.
 const client = new Discord.Client({ ws: { properties: { $browser: "Discord iOS" } }});
 
 /**
