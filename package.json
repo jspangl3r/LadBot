@@ -4,20 +4,23 @@
   "description": "![Bot image](https://github.com/jspangled/LadBot/blob/master/ladbot/data/images/projectPic.jpg?raw=true)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tsc": "tsc"
   },
   "author": "Josh Spangler",
   "license": "ISC",
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "@discordjs/opus": "^0.3.2",
+    "@types/node": "^14.14.31",
     "async": "^3.2.0",
     "better-sqlite3": "^7.0.1",
-    "discord.js": "^12.2.0",
+    "discord.js": "^12.5.1",
     "enmap": "^5.3.1",
     "js-yaml": "^3.14.0",
-    "shuffle-array": "^1.0.1"
+    "shuffle-array": "^1.0.1",
+    "typescript": "^4.2.2"
   },
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jspangled/LadBot.git"

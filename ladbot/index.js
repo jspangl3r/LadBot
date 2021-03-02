@@ -2,6 +2,7 @@
  Infrastructure file that sets up the bot.
  */
 
+
 // Stuff we're gonna need
 const Discord = require("discord.js");
 const Enmap = require("enmap");
