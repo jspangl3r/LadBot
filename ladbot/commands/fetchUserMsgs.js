@@ -10,6 +10,7 @@ const async = require("async");
 exports.run = async (client, message, args) => {
   // Only run if me
   if (message.author.id !== client.config.ids.ownerID) {
+    console.log(client.config.ids.ownerID);
     return message.reply(" nice try, lol :sunglasses:");
   }
 
