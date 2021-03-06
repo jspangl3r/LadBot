@@ -5,7 +5,6 @@
 import { Client } from "discord.js";
 import config from "../data/config.json";
 import { onMessage } from "./ladbot";
-import Enmap from "enmap";
 import fs from "fs";
 // import config from "ladbot"
 

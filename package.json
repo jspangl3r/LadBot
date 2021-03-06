@@ -22,7 +22,6 @@
     "better-sqlite3": "^7.0.1",
     "copyfiles": "^2.4.1",
     "discord.js": "^12.5.1",
-    "enmap": "^5.3.1",
     "eslint": "^7.21.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-prettier": "^3.3.1",
