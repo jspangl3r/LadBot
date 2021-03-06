@@ -1,25 +1,71 @@
 {
   "name": "ladbot",
   "version": "1.1.0",
-  "description": "![Bot image](https://github.com/jspangled/LadBot/blob/master/ladbot/data/images/projectPic.jpg?raw=true)",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "tsc": "tsc"
-  },
   "author": "Josh Spangler",
   "license": "ISC",
+  "description": "![Bot image](https://github.com/jspangled/LadBot/blob/master/ladbot/data/images/projectPic.jpg?raw=true)",
+  "scripts": {
+    "start": "node build/src/index.js",
+    "build": "tsc -p tsconfig.json",
+    "postbuild": "npm run copyDataToBuild",
+    "copyDataToBuild": "copyfiles --error data/**/* build",
+    "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
+    "tsc": "tsc"
+  },
   "dependencies": {},
   "devDependencies": {
     "@discordjs/opus": "^0.3.2",
     "@types/node": "^14.14.31",
+    "@typescript-eslint/eslint-plugin": "^4.16.1",
+    "@typescript-eslint/parser": "^4.16.1",
     "async": "^3.2.0",
     "better-sqlite3": "^7.0.1",
+    "copyfiles": "^2.4.1",
     "discord.js": "^12.5.1",
     "enmap": "^5.3.1",
+    "eslint": "^7.21.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-prettier": "^3.3.1",
     "js-yaml": "^3.14.0",
+    "prettier": "^2.2.1",
     "shuffle-array": "^1.0.1",
     "typescript": "^4.2.2"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:@typescript-eslint/eslint-recommended",
+      "plugin:@typescript-eslint/recommended"
+    ],
+    "plugins": [
+      "prettier",
+      "@typescript-eslint"
+    ],
+    "parserOptions": {
+      "ecmaVersion": 2020
+    },
+    "rules": {
+      "prettier/prettier": [
+        "warn",
+        {
+          "endOfLine": "auto"
+        }
+      ],
+      "@typescript-eslint/no-explicit-any": "off"
+    },
+    "overrides": [
+      {
+        "files": [
+          "ladbot-ts/**/*.ts"
+        ],
+        "parserOptions": {
+          "parser": "@typescript-eslint/parser"
+        }
+      }
+    ]
   },
   "repository": {
     "type": "git",

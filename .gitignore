@@ -1,8 +1,7 @@
-node_modules/
-.idea/
-.vscode/
-ladbot/node_modules
-ladbot/.idea/
-ladbot/.vscode/
-ladbot/data/
-ladbot/learn/
+data
+build
+src/learn
+ladbot
+node_modules
+.idea
+.vscode
