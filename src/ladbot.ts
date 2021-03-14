@@ -2,9 +2,10 @@
  * Responsible for dealing with message events and some markov stuff.
  */
 import { Client, Message } from "discord.js";
-import config from "../data/config.json";
-import { commands } from "./index";
+import { validMessage, randomItemFromArr } from "./utils";
 import { createChain, mergeSentence } from "./markov";
+import { commands } from "./index";
+import config from "../data/config.json";
 import fs from "fs";
 
 // Get the bot's generated gpt-2 text samples.
@@ -22,21 +23,23 @@ const boisDataset = JSON.parse(
  *
  * @param client The current {@code Discord.client} instance that is logged in
  * @param message The read {@code Discord.Message}
- * @param db JSON object containing markov chain per discord server, managed by
- *           {@code markov.ts}
+ * @param db JSON object containing messages sorted by user per guild.
+ * @param markovDB JSON object containing markov chain per discord server, managed by
+ *                 {@code markov.ts}
  * @returns Either nothing or a message response
  */
 export function onMessage(
   client: Client,
   message: Message,
-  db: Record<string, any>
+  db: Record<string, any>,
+  markovDB: Record<string, any>
 ): void | Promise<Message> {
   // Ignore all bots
   if (message.author.bot) return;
 
   // Upon being mentioned, send back random response from boisDataset
   if (message.content.includes(config.ids.botID)) {
-    const msg = boisDataset[Math.floor(Math.random() * boisDataset.length)];
+    const msg = randomItemFromArr(boisDataset);
     return message.channel.send(msg);
   }
 
@@ -47,19 +50,27 @@ export function onMessage(
     }
   }
 
-  // (1/420) chance to reply to anyone with a text sample..
-  if (Math.floor(Math.random() * 420) + 1 === 1) {
-    const msg = boisDataset[Math.floor(Math.random() * boisDataset.length)];
+  // (1/1000) chance to reply to anyone with a text sample..
+  if (Math.floor(Math.random() * 1000) + 1 === 1) {
+    const msg = randomItemFromArr(boisDataset);
     return message.reply(msg);
   }
 
-  // Continue adding to the current server's markov chain
+  // Add to guild messages db and to the markov db
   const channelID = message.channel.id;
-  const msgText = message.content;
-  if (!db[channelID]) {
-    db[channelID] = createChain();
-  } else if (msgText && !msgText.includes(config.prefix)) {
-    mergeSentence(db[channelID], msgText);
+  if (db[channelID]) {
+    if (validMessage(message)) {
+      if (!db[channelID][message.author.id]) {
+        db[channelID][message.author.id] = [message.content];
+      } else {
+        db[channelID][message.author.id].unshift(message.content);
+      }
+    }
+  }
+  if (!markovDB[channelID]) {
+    markovDB[channelID] = createChain();
+  } else if (message.content && !message.content.includes(config.prefix)) {
+    mergeSentence(markovDB[channelID], message.content);
   }
 
   // At this point ignore message not starting with the prefix

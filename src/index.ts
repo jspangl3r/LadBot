@@ -3,39 +3,37 @@
  */
 
 import { Client } from "discord.js";
-import config from "../data/config.json";
+import { randomItemFromArr, restart } from "./utils";
 import { onMessage } from "./ladbot";
+import config from "../data/config.json";
 import fs from "fs";
-// import config from "ladbot"
 
 // Create a new discord client with the mobile icon discord status.
 const client = new Client({
   ws: { properties: { $browser: "Discord iOS" } },
 });
 
-// Load up markov database
+// Load up databases
 let db = {};
+let markovDB = {};
 try {
   db = JSON.parse(fs.readFileSync(config.database).toString());
-  console.log("Database loaded.");
+  markovDB = JSON.parse(fs.readFileSync(config.markovDatabase).toString());
+  console.log("Databases loaded.");
 } catch (err) {
   console.log(err);
 }
 
 /**
  * Setup variables to restart after a certain amount of messages are added to
- * the markov db.
+ * the databases.
  */
 const SAVE_LIMIT = 5;
 let ii = 0;
-const restart = () => {
-  client.destroy();
-  client.login(config.token);
-  console.log("Bot has been restarted.\n");
-};
 const save = () => {
   fs.writeFileSync(config.database, JSON.stringify(db));
-  console.log("Database has been saved.");
+  fs.writeFileSync(config.markovDatabase, JSON.stringify(markovDB));
+  console.log("Both databases saved.");
 };
 const saveTimer = () => {
   save();
@@ -44,7 +42,7 @@ const saveTimer = () => {
   // Check to see if we should restart
   if (ii === SAVE_LIMIT) {
     ii = 0;
-    restart();
+    restart(client);
   }
 };
 if ((config as any).auto_save) {
@@ -83,8 +81,7 @@ client.on("ready", () => {
   const customActivities = JSON.parse(
     fs.readFileSync((config as any).customActivities).toString()
   );
-  const randStatus =
-    customActivities[Math.floor(Math.random() * customActivities.length)];
+  const randStatus = randomItemFromArr(customActivities);
   if (client.user) client.user.setActivity(randStatus);
 });
 
@@ -92,5 +89,5 @@ client.on("ready", () => {
  * Upon reading a message, call {@code #onMessage}.
  */
 client.on("message", (message) => {
-  onMessage(client, message, db);
+  onMessage(client, message, db, markovDB);
 });
