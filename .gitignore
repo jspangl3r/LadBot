@@ -5,3 +5,4 @@ ladbot
 node_modules
 .idea
 .vscode
+.DS_STORE
