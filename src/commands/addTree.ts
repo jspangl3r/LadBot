@@ -6,7 +6,7 @@ import fs from "fs";
  * Add tree.
  * @params args Expected to be a new epic tree message
  */
-export function run(
+export default function run(
   client: Client,
   message: Message,
   args: string[]

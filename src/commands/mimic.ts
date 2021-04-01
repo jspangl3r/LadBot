@@ -4,13 +4,13 @@ import fs from "fs";
 import { randomColor, randomItemFromArr } from "../utils";
 
 /**
- * Picks a 
- * @param client 
- * @param message 
- * @param args 
- * @returns 
+ * Picks a
+ * @param client
+ * @param message
+ * @param args
+ * @returns
  */
-export function run(
+export default function run(
   client: Client,
   message: Message,
   args: string[]

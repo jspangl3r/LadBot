@@ -6,7 +6,7 @@ import fs from "fs";
  * Adds a new anime-esque image to one of the bot's databases.
  * @params args Expected to be a link that ends in .gif, .jpg, .jpeg,.png
  */
-export function run(
+export default function run(
   client: Client,
   message: Message,
   args: string[]

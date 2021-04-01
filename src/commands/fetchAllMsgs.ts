@@ -11,7 +11,7 @@ import fs from "fs";
  * @param args Expected to contain a channel ID to get all messages from. If
  *             not entered, defaults to the message's channel ID
  */
-export async function run(
+export default async function run(
   client: Client,
   message: Message,
   args: string[]
