@@ -1,6 +1,5 @@
-/**
- * Responsible for dealing with message events and some markov stuff.
- */
+/** Responsible for dealing with message events and some markov stuff. */
+
 import { Client, Message } from "discord.js";
 import { validMessage, randomItemFromArr } from "./utils";
 import { createChain, mergeSentence } from "./markov";
@@ -10,7 +9,7 @@ import fs from "fs";
 
 // Get the bot's generated gpt-2 text samples.
 const boisDataset = JSON.parse(
-  fs.readFileSync("./data/train/datasets/LadBoi/ladboi.json").toString()
+  fs.readFileSync("./data/train/datasets/Lad/lad.json").toString()
 );
 
 /**

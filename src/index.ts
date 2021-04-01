@@ -1,6 +1,4 @@
-/**
- * Main entry point to the bot.
- */
+/** Main entry point to the bot. */
 
 import { Client } from "discord.js";
 import { randomItemFromArr, restart } from "./utils";
@@ -27,28 +25,30 @@ try {
 /**
  * Setup variables to restart after a certain amount of messages are added to
  * the databases.
+ *
+ * // TODO: saving while fetching all messages can mess with the saved database.
  */
 const SAVE_LIMIT = 5;
-let ii = 0;
-const save = () => {
-  fs.writeFileSync(config.database, JSON.stringify(db));
-  fs.writeFileSync(config.markovDatabase, JSON.stringify(markovDB));
-  console.log("Both databases saved.");
-};
-const saveTimer = () => {
-  save();
-  setTimeout(saveTimer, (config as any).auto_save_interval * 1000);
-  ii++;
-  // Check to see if we should restart
-  if (ii === SAVE_LIMIT) {
-    ii = 0;
-    restart(client);
-  }
-};
-if ((config as any).auto_save) {
-  console.log("Auto save is on.");
-  setTimeout(saveTimer, (config as any).auto_save_interval * 1000);
-}
+const ii = 0;
+// const save = () => {
+//   fs.writeFileSync(config.database, JSON.stringify(db));
+//   fs.writeFileSync(config.markovDatabase, JSON.stringify(markovDB));
+//   console.log("Both databases saved.");
+// };
+// const saveTimer = () => {
+//   save();
+//   setTimeout(saveTimer, (config as any).auto_save_interval * 1000);
+//   ii++;
+//   // Check to see if we should restart
+//   if (ii === SAVE_LIMIT) {
+//     ii = 0;
+//     restart(client);
+//   }
+// };
+// if ((config as any).auto_save) {
+//   console.log("Auto save is on.");
+//   setTimeout(saveTimer, (config as any).auto_save_interval * 1000);
+// }
 
 /**
  * Export a {@code #commands} map constant containing a mapping for each

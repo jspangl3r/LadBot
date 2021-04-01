@@ -46,7 +46,8 @@ export async function run(
       messages.forEach(
         (msg) => (msg.content = msg.content.split("\n").join("").trim())
       );
-      const filteredMessages = messages.filter((msg) => validMessage(msg));
+
+      //const filteredMessages = messages.filter((msg) => validMessage(msg));
 
       // Get the database JSON object
       const db: Record<string, any> = JSON.parse(
@@ -62,12 +63,43 @@ export async function run(
         channelDB = db[channelID];
       }
 
-      // For each filtered message, add the message's content sorted per user
-      filteredMessages.forEach((message) => {
+      // For each message, add the message's content sorted per user if it is
+      // a valid message.
+      const channelDBMessages: Message[] = [];
+      messages.forEach((message, ii) => {
+        if (!validMessage(message)) return;
         if (!channelDB[message.author.id]) {
           channelDB[message.author.id] = [message.content];
         } else {
-          channelDB[message.author.id].push(message.content);
+          // Chain messages from same author and were sent around the same time.
+          const FIVE_MIN = 5 * 60 * 1000;
+          if (
+            ii > 0 &&
+            channelDBMessages.length > 0 &&
+            message.author.id === channelDBMessages[0].author.id &&
+            Math.abs(
+              message.createdAt.getTime() -
+                channelDBMessages[0].createdAt.getTime()
+            ) <= FIVE_MIN
+          ) {
+            let fullStop = null;
+            if (
+              [".", "!", "?"].includes(
+                message.content[message.content.length - 1]
+              )
+            ) {
+              fullStop = message.content[message.content.length - 1];
+            }
+            const lastIdx = channelDB[message.author.id].length - 1;
+            channelDB[message.author.id][lastIdx] = fullStop
+              ? `${message.content}${fullStop} ${
+                  channelDB[message.author.id][lastIdx]
+                }`
+              : `${message.content}. ${channelDB[message.author.id][lastIdx]}`;
+          } else {
+            channelDB[message.author.id].push(message.content);
+            channelDBMessages.unshift(message);
+          }
         }
       });
 

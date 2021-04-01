@@ -43,3 +43,11 @@ export function restart(client: Client): void {
   client.login(config.token);
   console.log("Bot has been restarted.\n");
 }
+
+/**
+ * Returns a random color.
+ * @returns a random color.
+ */
+export function randomColor(): number {
+  return Math.floor(Math.random() * 16777214 + 1);
+}
