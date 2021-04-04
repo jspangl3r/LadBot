@@ -4,11 +4,7 @@ import { Client, Message } from "discord.js";
 import config from "../../data/config.json";
 import fs from "fs";
 
-export default function run(
-  client: Client,
-  message: Message,
-  args: string[]
-): void {
+export function run(client: Client, message: Message, args: string[]): void {
   if (message.author.id !== config.ids.ownerID) return;
 
   if (!args[0]) return;

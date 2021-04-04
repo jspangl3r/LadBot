@@ -75,7 +75,8 @@ export function onMessage(
   // At this point ignore message not starting with the prefix
   if (!message.content.includes(config.prefix)) return;
 
-  // Attempt to load and execute a command
+  // Attempt to load and execute a command. Pass in the current discord client,
+  // message caught, and any args
   const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
   const commandName = args.shift();
   if (commandName) {

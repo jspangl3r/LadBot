@@ -10,7 +10,7 @@ import { randomColor, randomItemFromArr } from "../utils";
  * @param args
  * @returns
  */
-export default function run(
+export function run(
   client: Client,
   message: Message,
   args: string[]
@@ -45,7 +45,7 @@ export default function run(
         mimic = firstCharMimic;
       }
       // Otherwise find the saved mimic that differs the least from the input
-      // text
+      // text. //TODO just use largest substring instead
       else {
         const diff = (diffMe: string, diffBy: string): number =>
           diffMe.split(diffMe.split(diffBy).join("")).join("").length;
@@ -73,5 +73,5 @@ export default function run(
   }
   embed.setTitle(mimic).setDescription(msg).setColor(color);
 
-  return message.channel.send({ embed });
+  return message.channel.send(embed);
 }

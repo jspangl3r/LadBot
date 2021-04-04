@@ -3,11 +3,10 @@ import config from "../../data/config.json";
 import fs from "fs";
 import { randomItemFromArr, randomColor, getParagraph } from "../utils";
 
-export default function run(
-  client: Client,
-  message: Message,
-  args: string[]
-): Promise<Message> {
+/**
+ * Quotes a lad. Slightly outdated.
+ */
+export function run(client: Client, message: Message): Promise<Message> {
   // Get random quote
   const quotes = JSON.parse(fs.readFileSync(config.quotes).toString());
   const quoteSplit = randomItemFromArr(quotes).split("-");
@@ -15,12 +14,12 @@ export default function run(
   const quoteAuth = quoteSplit[1].trim();
 
   // Justify text
-  const txt = `*${getParagraph(quoteText.split(" "), 30)}*`;
+  const txt = `*${getParagraph(quoteText.split(" "), 40)}*`;
 
   const embed = new MessageEmbed()
     .setDescription(txt)
     .setColor(randomColor())
     .setFooter(`- ${quoteAuth}`);
 
-  return message.channel.send({ embed });
+  return message.channel.send(embed);
 }

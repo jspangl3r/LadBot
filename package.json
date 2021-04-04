@@ -19,6 +19,7 @@
     "@typescript-eslint/eslint-plugin": "^4.16.1",
     "@typescript-eslint/parser": "^4.16.1",
     "better-sqlite3": "^7.0.1",
+    "colorthief": "^2.3.2",
     "copyfiles": "^2.4.1",
     "discord.js": "^12.5.1",
     "eslint": "^7.21.0",

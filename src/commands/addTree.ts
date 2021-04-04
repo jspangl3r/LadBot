@@ -4,19 +4,15 @@ import fs from "fs";
 
 /**
  * Add tree.
- * @params args Expected to be a new epic tree message
+ * @params args Expected to be a new epic tree message.
  */
-export default function run(
+export function run(
   client: Client,
   message: Message,
   args: string[]
 ): Promise<Message> {
-  let msg;
-  try {
-    msg = message.content.split(".addTree ")[1].trim();
-  } catch (e) {
-    return message.reply("```.addTree [tree message]```");
-  }
+  if (!args[0]) return message.reply("```.addTree [tree message]```");
+  const msg = message.content.split(".addTree ")[1].trim();
 
   const arr = JSON.parse(fs.readFileSync(config.trees).toString());
   for (let i = 0; i < arr.length; i++) {

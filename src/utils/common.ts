@@ -51,3 +51,22 @@ export function restart(client: Client): void {
 export function randomColor(): number {
   return Math.floor(Math.random() * 16777214 + 1);
 }
+
+/**
+ * Converts input r, g, b {@code number}s to a hex {@code string}.
+ * @param r The red rgb value
+ * @param g The green rgb value
+ * @param b The blue rgb value
+ * @returns A color hex {@code string}.
+ */
+export function rgbToHex(r: number, g: number, b: number): string {
+  return (
+    "#" +
+    [r, g, b]
+      .map((x) => {
+        const hex = x.toString(16);
+        return hex.length === 1 ? "0" + hex : hex;
+      })
+      .join("")
+  );
+}
