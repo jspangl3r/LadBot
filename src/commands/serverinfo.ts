@@ -1,5 +1,5 @@
 import { Client, Message, MessageEmbed } from "discord.js";
-import { getDifferenceInDays, rgbToHex } from "../utils";
+import { daysAgoLabel, rgbToHex } from "../utils";
 import { getColor } from "colorthief";
 
 /**
@@ -11,7 +11,7 @@ export async function run(client: Client, message: Message): Promise<Message> {
   const iconURL = guild.iconURL({ format: "png", dynamic: true });
 
   // Calculate date stuff
-  const createdDaysAgo = getDifferenceInDays(guild.createdAt, new Date());
+  const createdDaysAgo = daysAgoLabel(guild.createdAt, new Date());
 
   // Channels info. Not counting category, news, or store channels
   const channels = guild.channels.cache.array();
@@ -43,7 +43,7 @@ export async function run(client: Client, message: Message): Promise<Message> {
   const embed = new MessageEmbed()
     .setTitle(guild.name)
     .setDescription(
-      `Around since ${guild.createdAt.toDateString()} (${createdDaysAgo} days ago!)`
+      `Around since ${guild.createdAt.toDateString()} (${createdDaysAgo} days ago)`
     )
     .setThumbnail(iconURL)
     .setColor(iconColor)
@@ -51,9 +51,9 @@ export async function run(client: Client, message: Message): Promise<Message> {
     .addField("Region", guild.region)
     .addField("Members", `${onlineMembers}/${guild.memberCount} online`)
     .addField("Emojis", numEmojis)
-    .addField("Text Channels", textChannels.length)
-    .addField("Voice Channels", voiceChannels.length)
-    .addField("AFK Channel", afkChannel ? afkChannel : "NA")
+    .addField("Text Channels: ", textChannels.length, true)
+    .addField("Voice Channels: ", voiceChannels.length, true)
+    .addField("AFK Channel: ", afkChannel ? afkChannel : "NA", true)
     .addField("Roles", numRoles)
     .addField("Owner", guild.owner);
 
