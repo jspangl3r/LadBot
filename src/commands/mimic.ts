@@ -4,11 +4,8 @@ import fs from "fs";
 import { randomColor, randomItemFromArr } from "../utils";
 
 /**
- * Picks a
- * @param client
- * @param message
- * @param args
- * @returns
+ * Displays a random message from either a random or specified mimic.
+ * @param args A specified mimic (optional).
  */
 export function run(
   client: Client,

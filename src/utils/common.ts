@@ -55,7 +55,7 @@ export function setActivity(client: Client): void {
     fs.readFileSync((config as any).customActivities).toString()
   );
   const randStatus = randomItemFromArr(customActivities);
-  console.log(client);
+  console.log(randStatus);
   if (client.user) {
     client.user.setActivity(randStatus);
   } else {
