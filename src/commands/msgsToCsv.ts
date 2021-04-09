@@ -26,5 +26,5 @@ export function run(client: Client, message: Message, args: string[]): void {
   });
 
   // Manually edit cuz bad coder
-  fs.writeFileSync("./data/train/datasets/Zach/zach2.csv", csv);
+  fs.writeFileSync("./data/train/datasets/Josh/Josh2.csv", csv);
 }

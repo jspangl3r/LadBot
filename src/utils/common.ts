@@ -3,6 +3,7 @@
 import { Client, Message } from "discord.js";
 import { wordsEmojis } from "./wordsEmojisRegex";
 import config from "../../data/config.json";
+import fs from "fs";
 
 /**
  * Returns a random item from the input {@code #arr} array.
@@ -35,13 +36,31 @@ export function validMessage(msg: Message): boolean {
 }
 
 /**
- * Restarts the bot linked to the input {@code #client} {@code Client} object.
+ * Restarts the bot linked to the input {@code #client} object.
  * @param client The {@code Client} object to restart.
  */
 export function restart(client: Client): void {
   client.destroy();
   client.login(config.token);
   console.log("Bot has been restarted.\n");
+  setActivity(client);
+}
+
+/**
+ * Sets the input {@code #client.user}'s status with a random custom activity.
+ * @param client The {@code Client} object to set the activity of.
+ */
+export function setActivity(client: Client): void {
+  const customActivities = JSON.parse(
+    fs.readFileSync((config as any).customActivities).toString()
+  );
+  const randStatus = randomItemFromArr(customActivities);
+  console.log(client);
+  if (client.user) {
+    client.user.setActivity(randStatus);
+  } else {
+    console.log("BLAH!");
+  }
 }
 
 /**

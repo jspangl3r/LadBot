@@ -39,20 +39,20 @@ export function onMessage(
   // Upon being mentioned, send back random response from boisDataset
   if (message.content.includes(config.ids.botID)) {
     const msg = randomItemFromArr(boisDataset);
-    return message.channel.send(msg);
+    message.channel.send(msg);
   }
 
   // Check for Matt message hehe
   if (message.author.id === config.ids.mattID) {
     if (Math.floor(Math.random() * 100) + 1 === 1) {
-      return message.reply("Shut up boy");
+      message.reply("Shut up boy");
     }
   }
 
   // (1/1000) chance to reply to anyone with a text sample..
   if (Math.floor(Math.random() * 1000) + 1 === 1) {
     const msg = randomItemFromArr(boisDataset);
-    return message.reply(msg);
+    message.reply(msg);
   }
 
   // Add to guild messages db and to the markov db

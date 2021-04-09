@@ -33,10 +33,11 @@ export function run(
   }
   // Args
   else {
-    mimic = args[0];
     if (args[0].toLowerCase() === "list") {
       embed.setTitle("Mimics").setDescription(`${mimics.join("\n")}`);
+      return message.channel.send(embed);
     } else {
+      mimic = args[0];
       // See if any saved mimics start with the input text
       const firstCharMimic = mimics.find((savedMimic) =>
         savedMimic.toLowerCase().startsWith(mimic.toLowerCase())

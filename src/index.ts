@@ -1,7 +1,11 @@
 /** Main entry point to the bot. */
+// Make .npz encoding
+// Train
+// From checkpoint/run/, create a model folder with the right files
+// Generate samples into a json
 
 import { Client, Intents } from "discord.js";
-import { randomItemFromArr, restart } from "./utils";
+import { restart, setActivity } from "./utils";
 import { onMessage } from "./ladbot";
 import config from "../data/config.json";
 import fs from "fs";
@@ -78,11 +82,7 @@ client.login(config.token);
  */
 client.on("ready", () => {
   console.log("Logged into discord!");
-  const customActivities = JSON.parse(
-    fs.readFileSync((config as any).customActivities).toString()
-  );
-  const randStatus = randomItemFromArr(customActivities);
-  if (client.user) client.user.setActivity(randStatus);
+  setActivity(client);
 });
 
 /**

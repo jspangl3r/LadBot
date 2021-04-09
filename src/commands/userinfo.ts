@@ -25,7 +25,6 @@ export async function run(
   gm = message.guild.member(user);
   await message.channel.fetch(true);
   await user.fetch(true).then((u) => (user = u));
-  console.log(gm.lastMessageChannelID);
 
   if (!user) return message.channel.send("Couldn't find user!");
 
@@ -33,6 +32,8 @@ export async function run(
   const today = new Date();
   const discordDaysAgo = daysAgoLabel(user.createdAt, today);
   const guildDaysAgo = daysAgoLabel(gm.joinedAt, today);
+  // TODO this only seems to be non-null when the last message was today...
+  // not being cached? look into this.
   const lastMsgDaysAgo = gm.lastMessage
     ? daysAgoLabel(gm.lastMessage.createdAt, today)
     : null;
@@ -48,6 +49,8 @@ export async function run(
         return "KO'd in idle status.";
       case "dnd":
         return "Doesn't want to be bothered.";
+      case "offline":
+        return "MIA in offline status.";
       default:
         return "In another world.";
     }
