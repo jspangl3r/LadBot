@@ -1,6 +1,6 @@
 /** Common utilities. */
 
-import { Client, Message } from "discord.js";
+import { Client, Message, MessageEmbed } from "discord.js";
 import { wordsEmojis } from "./wordsEmojisRegex";
 import config from "../../data/config.json";
 import fs from "fs";
@@ -41,9 +41,8 @@ export function validMessage(msg: Message): boolean {
  */
 export function restart(client: Client): void {
   client.destroy();
-  client.login(config.token);
+  client.login(config.token).then(() => setActivity(client));
   console.log("Bot has been restarted.\n");
-  setActivity(client);
 }
 
 /**
@@ -55,7 +54,6 @@ export function setActivity(client: Client): void {
     fs.readFileSync((config as any).customActivities).toString()
   );
   const randStatus = randomItemFromArr(customActivities);
-  console.log(randStatus);
   if (client.user) {
     client.user.setActivity(randStatus);
   } else {

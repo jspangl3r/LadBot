@@ -1,8 +1,4 @@
 /** Main entry point to the bot. */
-// Make .npz encoding
-// Train
-// From checkpoint/run/, create a model folder with the right files
-// Generate samples into a json
 
 import { Client, Intents } from "discord.js";
 import { restart, setActivity } from "./utils";
