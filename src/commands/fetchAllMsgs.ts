@@ -4,10 +4,7 @@ import config from "../../data/config.json";
 import fs from "fs";
 
 /**
- * Collects and filters all the messages in a {@code TextChanne}, specified by
- * the input {@code #args[0]} channel ID. This function should be ran in the
- * {@code Guild} that contains the {@code TextChannel}. After all messages are
- * collected, messages are filtered and written to disk.
+ * Collects, filters, and saves all the messages in a {@code TextChannel}.
  * @param args Expected to contain a channel ID to get all messages from. If
  *             not entered, defaults to the message's channel ID
  */

@@ -1,7 +1,7 @@
-import { Client, Message } from "discord.js";
+import { Client } from "discord.js";
 import { restart } from "../utils";
 
-export function run(client: Client, message: Message): void {
+export function run(client: Client): void {
   restart(client);
   return;
 }

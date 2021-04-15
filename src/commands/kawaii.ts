@@ -3,7 +3,7 @@ import config from "../../data/config.json";
 import fs from "fs";
 
 /**
- * Sends a kawaii ★,｡･::･ﾟ’☆ image.
+ * So kawaii ★,｡･::･ﾟ’☆ !!
  */
 export function run(client: Client, message: Message): Promise<Message> {
   const animelinks = JSON.parse(fs.readFileSync(config.animelinks).toString());

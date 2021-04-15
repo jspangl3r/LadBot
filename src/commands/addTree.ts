@@ -4,7 +4,7 @@ import fs from "fs";
 
 /**
  * Add tree.
- * @params args Expected to be a new epic tree message.
+ * @param args Expected to be a new epic tree message.
  */
 export function run(
   client: Client,

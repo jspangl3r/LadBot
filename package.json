@@ -12,7 +12,9 @@
     "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
     "tsc": "tsc"
   },
-  "dependencies": {},
+  "dependencies": {
+    "axios": "^0.21.1"
+  },
   "devDependencies": {
     "@discordjs/opus": "^0.3.2",
     "@types/node": "^14.14.31",

@@ -4,7 +4,7 @@ import fs from "fs";
 
 /**
  * Adds a new anime-esque image to one of the bot's databases.
- * @params args Expected to be a link that ends in .gif, .jpg, .jpeg,.png
+ * @param args Expected to be a link that ends in .gif, .jpg, .jpeg,.png
  */
 export function run(
   client: Client,
