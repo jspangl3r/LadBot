@@ -1,9 +1,14 @@
 /** Common utilities. */
 
-import { Client, Message, MessageEmbed } from "discord.js";
+import { Client, Message, GuildMember, MessageEmbed } from "discord.js";
 import { wordsEmojis } from "./wordsEmojisRegex";
 import config from "../../data/config.json";
 import fs from "fs";
+
+// export function gmEmbed(gm: GuildMember, ) {
+//   return new MessageEmbed()
+//     .setTitle(gm.nickname ? `${}`)
+// }
 
 /**
  * Returns a random item from the input {@code #arr} array.
@@ -42,7 +47,7 @@ export function validMessage(msg: Message): boolean {
 export function restart(client: Client): void {
   client.destroy();
   client.login(config.token).then(() => setActivity(client));
-  console.log("Bot has been restarted.\n");
+  console.log("Bot has been restarted.");
 }
 
 /**

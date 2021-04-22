@@ -12,8 +12,8 @@ export function run(
   message: Message,
   args: string[]
 ): Promise<Message> {
-  const mimics: string[] = JSON.parse(
-    fs.readFileSync(config.mimics).toString()
+  const lads: string[] = Object.keys(
+    JSON.parse(fs.readFileSync(config.lads).toString())
   );
   const ladImages: string[] = JSON.parse(
     fs.readFileSync(config.ladPics).toString()
@@ -26,17 +26,17 @@ export function run(
 
   // No args - random mimic and msg
   if (!args[0]) {
-    mimic = randomItemFromArr(mimics);
+    mimic = randomItemFromArr(lads);
   }
   // Args
   else {
     if (args[0].toLowerCase() === "list") {
-      embed.setTitle("Mimics").setDescription(`${mimics.join("\n")}`);
+      embed.setTitle("Mimics").setDescription(`${lads.join("\n")}`);
       return message.channel.send(embed);
     } else {
       mimic = args[0];
       // See if any saved mimics start with the input text
-      const firstCharMimic = mimics.find((savedMimic) =>
+      const firstCharMimic = lads.find((savedMimic) =>
         savedMimic.toLowerCase().startsWith(mimic.toLowerCase())
       );
       if (firstCharMimic) {
@@ -47,7 +47,7 @@ export function run(
       else {
         const diff = (diffMe: string, diffBy: string): number =>
           diffMe.split(diffMe.split(diffBy).join("")).join("").length;
-        const mimicDiffs: [string, number][] = mimics.map((savedMimic) => [
+        const mimicDiffs: [string, number][] = lads.map((savedMimic) => [
           savedMimic,
           diff(savedMimic.toLowerCase(), mimic.toLowerCase()),
         ]);

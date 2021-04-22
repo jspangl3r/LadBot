@@ -7,6 +7,9 @@ import { commands } from "./index";
 import config from "../data/config.json";
 import fs from "fs";
 
+// Lads info.
+const lads = JSON.parse(fs.readFileSync(config.lads).toString());
+
 // Get the bot's generated gpt-2 text samples.
 const boisDataset = JSON.parse(
   fs.readFileSync("./data/train/datasets/Lad/lad.json").toString()
@@ -37,13 +40,13 @@ export function onMessage(
   if (message.author.bot) return;
 
   // Upon being mentioned, send back random response from boisDataset
-  if (message.content.includes(config.ids.botID)) {
+  if (message.content.includes(config.discordID)) {
     const msg = randomItemFromArr(boisDataset);
     message.channel.send(msg);
   }
 
   // Check for Matt message hehe
-  if (message.author.id === config.ids.mattID) {
+  if (message.author.id === lads.Matt.id) {
     if (Math.floor(Math.random() * 100) + 1 === 1) {
       message.reply("Shut up boy");
     }

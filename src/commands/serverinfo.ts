@@ -43,7 +43,7 @@ export async function run(client: Client, message: Message): Promise<Message> {
   const embed = new MessageEmbed()
     .setTitle(guild.name)
     .setDescription(
-      `Around since ${guild.createdAt.toDateString()} (${createdDaysAgo} days ago)`
+      `Around since ${guild.createdAt.toDateString()} (${createdDaysAgo})`
     )
     .setThumbnail(iconURL)
     .setColor(iconColor)

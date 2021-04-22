@@ -26,14 +26,6 @@ export function run(
     return message.reply(ERROR);
   }
 
-  // Make sure only Travis and Jackson can add
-  const authorID = message.author.id;
-  const trav = config.ids.travID;
-  const jack = config.ids.jackID;
-  if (!(authorID === trav || authorID === jack)) {
-    return message.reply("You are not Travis or possibly Jackson :rage:");
-  }
-
   // See if this bitch has already been added
   const arr = JSON.parse(fs.readFileSync(config.animelinks).toString());
   for (let i = 0; i < arr.length; i++) {

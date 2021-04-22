@@ -14,7 +14,7 @@ export async function run(
   args: string[]
 ): Promise<void> {
   // Only execute if I called this command
-  if (message.author.id !== config.ids.ownerID) return;
+  if (message.author.id !== config.ownerID) return;
 
   // Grab the TextChannel from args[0] or message.channel.id
   let channelID = message.channel.id;
@@ -43,8 +43,6 @@ export async function run(
       messages.forEach(
         (msg) => (msg.content = msg.content.split("\n").join("").trim())
       );
-
-      //const filteredMessages = messages.filter((msg) => validMessage(msg));
 
       // Get the database JSON object
       const db: Record<string, any> = JSON.parse(
