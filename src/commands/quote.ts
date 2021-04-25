@@ -1,20 +1,20 @@
-import { Client, Message, GuildMember, MessageEmbed } from "discord.js";
+import { Client, GuildMember, Message, MessageEmbed } from "discord.js";
 import config from "../../data/config.json";
 import fs from "fs";
 import {
   randomItemFromArr,
   randomColor,
-  getParagraph,
-  gmEmbed,
-  gmEmbedOption,
+  ladEmbed,
+  ladEmbedOption,
+  findLad,
 } from "../utils";
 
 /**
  * Quotes a lad. Slightly outdated.
  */
 export function run(client: Client, message: Message): Promise<Message> {
-  // Get lads info
-  const lads = Object.keys(fs.readFileSync(config.lads).toString());
+  // Get lad pics
+  const ladPics = JSON.parse(fs.readFileSync(config.ladPics).toString());
 
   // Get random quote
   const quotes = JSON.parse(fs.readFileSync(config.quotes).toString());
@@ -26,12 +26,13 @@ export function run(client: Client, message: Message): Promise<Message> {
 
   // Build embed. Get guild member from quoteAuth if possible.
   let embed: MessageEmbed = null;
-  if (lads.includes(quoteAuth)) {
-    embed = gmEmbed(
-      message.guild.member(message.author),
+  if (ladPics.includes(quoteAuth)) {
+    const gm: GuildMember = findLad(message.guild, quoteAuth);
+    embed = ladEmbed(
+      gm ? gm : message.guild.member(message.author),
+      ladEmbedOption.QUOTE,
       quoteAuth,
-      quoteYear,
-      gmEmbedOption.QUOTE
+      quoteYear
     );
   } else {
     embed = new MessageEmbed()

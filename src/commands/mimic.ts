@@ -1,7 +1,7 @@
-import { Client, Message, MessageEmbed, MessageAttachment } from "discord.js";
+import { Client, Message, MessageEmbed, GuildMember } from "discord.js";
 import config from "../../data/config.json";
 import fs from "fs";
-import { randomColor, randomItemFromArr } from "../utils";
+import { findLad, ladEmbed, ladEmbedOption, randomItemFromArr } from "../utils";
 
 /**
  * Displays a random message from either a random or specified mimic.
@@ -12,31 +12,31 @@ export function run(
   message: Message,
   args: string[]
 ): Promise<Message> {
-  const lads: string[] = Object.keys(
-    JSON.parse(fs.readFileSync(config.lads).toString())
+  const lads: Record<string, any> = JSON.parse(
+    fs.readFileSync(config.lads).toString()
   );
+
   const ladImages: string[] = JSON.parse(
     fs.readFileSync(config.ladPics).toString()
   );
 
-  const embed = new MessageEmbed();
-  const color = randomColor();
-  let attachment: MessageAttachment;
+  let embed = new MessageEmbed();
   let mimic: string = null;
 
   // No args - random mimic and msg
   if (!args[0]) {
-    mimic = randomItemFromArr(lads);
+    mimic = randomItemFromArr(ladImages);
   }
   // Args
   else {
     if (args[0].toLowerCase() === "list") {
-      embed.setTitle("Mimics").setDescription(`${lads.join("\n")}`);
+      const ladsKeys = Object.keys(lads);
+      embed.setTitle("Mimics").setDescription(`${ladsKeys.join("\n")}`);
       return message.channel.send(embed);
     } else {
       mimic = args[0];
       // See if any saved mimics start with the input text
-      const firstCharMimic = lads.find((savedMimic) =>
+      const firstCharMimic = ladImages.find((savedMimic) =>
         savedMimic.toLowerCase().startsWith(mimic.toLowerCase())
       );
       if (firstCharMimic) {
@@ -47,7 +47,7 @@ export function run(
       else {
         const diff = (diffMe: string, diffBy: string): number =>
           diffMe.split(diffMe.split(diffBy).join("")).join("").length;
-        const mimicDiffs: [string, number][] = lads.map((savedMimic) => [
+        const mimicDiffs: [string, number][] = ladImages.map((savedMimic) => [
           savedMimic,
           diff(savedMimic.toLowerCase(), mimic.toLowerCase()),
         ]);
@@ -62,14 +62,29 @@ export function run(
 
   // Build embed
   if (!mimic) return message.reply("Mimic not found.");
-  const path = `./data/train/datasets/${mimic}/${mimic}.json`;
+  let path = `./data/train/datasets/${mimic}/${mimic}.json`;
   const dataset = JSON.parse(fs.readFileSync(path).toString());
   const msg = randomItemFromArr(dataset);
-  if (ladImages.includes(mimic)) {
-    attachment = new MessageAttachment(`./data/images/Lads/${mimic}.png`);
-    embed.attachFiles([attachment]).setThumbnail(`attachment://${mimic}.png`);
-  }
-  embed.setTitle(mimic).setDescription(msg).setColor(color);
+  const gm: GuildMember = findLad(message.guild, mimic);
+  embed = ladEmbed(
+    gm ? gm : message.guild.member(message.author),
+    ladEmbedOption.MIMIC,
+    mimic
+  ).setDescription(msg);
+
+  // Info. on mimic model.
+  path = `./data/train/datasets/${mimic}/${mimic}.csv`;
+  const datasetSize = fs.readFileSync(path, "utf8").split(/\r?\n/).length;
+  path = `./data/train/models/${mimic}/checkpoint`;
+  const numIterations = fs
+    .readFileSync(path, "utf8")
+    .split("\n")[0]
+    .split("model_checkpoint_path:")[1]
+    .split("model-")[1]
+    .slice(0, -1);
+  embed.setFooter(
+    `Trained on ${datasetSize} messages with ${numIterations} iterations using GPT-2 124M model`
+  );
 
   return message.channel.send(embed);
 }

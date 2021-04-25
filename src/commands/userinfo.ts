@@ -1,12 +1,5 @@
-import {
-  Client,
-  Message,
-  GuildMember,
-  User,
-  MessageEmbed,
-  Presence,
-} from "discord.js";
-import { daysAgoLabel } from "../utils";
+import { Client, Message, GuildMember, User, Presence } from "discord.js";
+import { daysAgoLabel, ladEmbed, ladEmbedOption } from "../utils";
 
 export async function run(
   client: Client,
@@ -60,11 +53,11 @@ export async function run(
   const roles = gm.roles.cache.array().filter((r) => r.name !== "@everyone");
   const rolesMsg = roles.length < 1 ? "None" : roles.join(" ");
 
-  const embed = new MessageEmbed()
-    .setTitle(gm.nickname ? `${user.tag} aka ${gm.nickname}` : `${user.tag}`)
+  // Get base embed
+  const embed = ladEmbed(gm, ladEmbedOption.USER_INFO);
+
+  embed
     .setDescription(statusMsg(user.presence))
-    .setThumbnail(user.avatarURL())
-    .setColor(gm.displayColor)
     .setFooter(`User ID: ${user.id}`)
     .addField(
       "Joined this server on",

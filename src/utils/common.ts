@@ -6,36 +6,38 @@ import {
   GuildMember,
   MessageEmbed,
   MessageAttachment,
+  Guild,
 } from "discord.js";
 import { wordsEmojis } from "./wordsEmojisRegex";
 import config from "../../data/config.json";
 import fs from "fs";
 
-export enum gmEmbedOption {
+/**
+ * Enum used in {@code #ladEmbed} to specify the type of embed.
+ */
+export enum ladEmbedOption {
   USER_INFO = 1,
   MIMIC = 2,
   QUOTE = 3,
 }
 
 /**
- *
- * @param gm
+ * Returns a template {@code MessageEmbed} for the specified lad {@code GuildMember}
+ * with title, thumbnail, and color information. Used for {@link userInfo.ts},
+ * {@link mimic.ts}, and {@link quote.ts}.
+ * @param gm The specified {@code GuildMember} to create the embed for.
  * @param option Indicates what the user embed is for.
- *               1 => for `userInfo`
- *               2 => for `mimic`
- *               3 => for `quote`s
- * @returns
+ * @param lad The name of the lad to get image data for. Optional.
+ * @param quoteYear The year from a quote. Optional.
+ * @returns A template {@code MessageEmbed} with re-used info.
  */
-export function gmEmbed(
+export function ladEmbed(
   gm: GuildMember,
-  lad: string,
-  quoteYear: number,
-  option: gmEmbedOption
-) {
+  option: ladEmbedOption,
+  lad: string = null,
+  quoteYear: number = null
+): MessageEmbed {
   const embed = new MessageEmbed();
-  const ladPics: string[] = JSON.parse(
-    fs.readFileSync(config.ladPics).toString()
-  );
 
   // Set title
   let title: string = null;
@@ -45,13 +47,13 @@ export function gmEmbed(
     title = gm.nickname ? `${gm.user.tag} aka ${gm.nickname}` : gm.user.tag;
   }
   switch (option) {
-    case gmEmbedOption.USER_INFO:
+    case ladEmbedOption.USER_INFO:
       title = gm.nickname ? `${gm.user.tag} aka ${gm.nickname}` : gm.user.tag;
       break;
-    case gmEmbedOption.MIMIC:
+    case ladEmbedOption.MIMIC:
       title = `"${lad}"`;
       break;
-    case gmEmbedOption.QUOTE:
+    case ladEmbedOption.QUOTE:
       title = `${lad} - ${quoteYear}`;
       break;
   }
@@ -69,6 +71,27 @@ export function gmEmbed(
   embed.setColor(gm.displayColor);
 
   return embed;
+}
+
+/**
+ * Attemps to find a lad {@code GuildMember} from an input {@code #lad} string.
+ * @param guild Assumed to be the YungLads {@code Guild}.
+ * @param lad The lad string to look for.
+ * @returns The lad's {@code GuildMember} object if found, or {@code null}.
+ */
+export function findLad(guild: Guild, lad: string): GuildMember | null {
+  const lads: Record<string, any> = JSON.parse(
+    fs.readFileSync(config.lads).toString()
+  );
+
+  let gm: GuildMember = null;
+  if (lads[lad]) {
+    gm = guild.members.cache
+      .array()
+      .find((member) => member.user.id === lads[lad].id);
+  }
+
+  return gm;
 }
 
 /**
