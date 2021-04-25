@@ -1,14 +1,75 @@
 /** Common utilities. */
 
-import { Client, Message, GuildMember, MessageEmbed } from "discord.js";
+import {
+  Client,
+  Message,
+  GuildMember,
+  MessageEmbed,
+  MessageAttachment,
+} from "discord.js";
 import { wordsEmojis } from "./wordsEmojisRegex";
 import config from "../../data/config.json";
 import fs from "fs";
 
-// export function gmEmbed(gm: GuildMember, ) {
-//   return new MessageEmbed()
-//     .setTitle(gm.nickname ? `${}`)
-// }
+export enum gmEmbedOption {
+  USER_INFO = 1,
+  MIMIC = 2,
+  QUOTE = 3,
+}
+
+/**
+ *
+ * @param gm
+ * @param option Indicates what the user embed is for.
+ *               1 => for `userInfo`
+ *               2 => for `mimic`
+ *               3 => for `quote`s
+ * @returns
+ */
+export function gmEmbed(
+  gm: GuildMember,
+  lad: string,
+  quoteYear: number,
+  option: gmEmbedOption
+) {
+  const embed = new MessageEmbed();
+  const ladPics: string[] = JSON.parse(
+    fs.readFileSync(config.ladPics).toString()
+  );
+
+  // Set title
+  let title: string = null;
+  if (option > 1) {
+    title = option === 3 ? lad : `"${lad}"`;
+  } else {
+    title = gm.nickname ? `${gm.user.tag} aka ${gm.nickname}` : gm.user.tag;
+  }
+  switch (option) {
+    case gmEmbedOption.USER_INFO:
+      title = gm.nickname ? `${gm.user.tag} aka ${gm.nickname}` : gm.user.tag;
+      break;
+    case gmEmbedOption.MIMIC:
+      title = `"${lad}"`;
+      break;
+    case gmEmbedOption.QUOTE:
+      title = `${lad} - ${quoteYear}`;
+      break;
+  }
+  embed.setTitle(title);
+
+  // Set thumbnail
+  if (option > 1) {
+    const attachment = new MessageAttachment(`./data/images/Lads/${lad}.png`);
+    embed.attachFiles([attachment]).setThumbnail(`attachment://${lad}.png`);
+  } else {
+    embed.setThumbnail(gm.user.avatarURL());
+  }
+
+  // Set color
+  embed.setColor(gm.displayColor);
+
+  return embed;
+}
 
 /**
  * Returns a random item from the input {@code #arr} array.

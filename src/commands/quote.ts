@@ -1,7 +1,13 @@
 import { Client, Message, GuildMember, MessageEmbed } from "discord.js";
 import config from "../../data/config.json";
 import fs from "fs";
-import { randomItemFromArr, randomColor, getParagraph } from "../utils";
+import {
+  randomItemFromArr,
+  randomColor,
+  getParagraph,
+  gmEmbed,
+  gmEmbedOption,
+} from "../utils";
 
 /**
  * Quotes a lad. Slightly outdated.
@@ -14,21 +20,26 @@ export function run(client: Client, message: Message): Promise<Message> {
   const quotes = JSON.parse(fs.readFileSync(config.quotes).toString());
   const quoteSplit = randomItemFromArr(quotes).split("-");
   const quoteText = quoteSplit[0].trim();
-  const quoteAuth = quoteSplit[1].trim();
+  const quoteAuthSplit = quoteSplit[1].split(",");
+  const quoteAuth = quoteAuthSplit[0].trim();
+  const quoteYear = quoteAuthSplit[1].trim();
 
   // Build embed. Get guild member from quoteAuth if possible.
   let embed: MessageEmbed = null;
   if (lads.includes(quoteAuth)) {
-    // embed = gmEmbed(message.guild.member(message.author));
+    embed = gmEmbed(
+      message.guild.member(message.author),
+      quoteAuth,
+      quoteYear,
+      gmEmbedOption.QUOTE
+    );
   } else {
-    // Justify text
-    const txt = `*${getParagraph(quoteText.split(" "), 40)}*`;
-
     embed = new MessageEmbed()
-      .setDescription(txt)
       .setColor(randomColor())
-      .setFooter(`- ${quoteAuth}`);
+      .setFooter(`- ${quoteAuth}, ${quoteYear}`);
   }
+
+  embed.setDescription(`*${quoteText}*`);
 
   return message.channel.send(embed);
 }
