@@ -1,4 +1,4 @@
-import { Client, Message, MessageEmbed } from "discord.js";
+import { Client, GuildMember, Message, MessageEmbed } from "discord.js";
 import { daysAgoLabel, rgbToHex } from "../utils";
 import { getColor } from "colorthief";
 
@@ -25,11 +25,13 @@ export async function run(client: Client, message: Message): Promise<Message> {
   // Member/Role info. Fetch from the API for up-to-date presences. Not sure
   // how frequently this stuff is cached...
   const numRoles = guild.roles.cache.array().length;
+  let membersArr: GuildMember[] = null;
   let onlineMembers = 0;
   await guild.members.fetch({ force: true }).then((members) => {
-    onlineMembers = members
-      .array()
-      .filter((member) => member.presence.status !== "offline").length;
+    membersArr = members.array().filter((member) => !member.user.bot);
+    onlineMembers = membersArr.filter(
+      (member) => member.presence.status !== "offline"
+    ).length;
   });
 
   // Color info
@@ -49,7 +51,7 @@ export async function run(client: Client, message: Message): Promise<Message> {
     .setColor(iconColor)
     .setFooter(`Server ID: ${guild.id}`)
     .addField("Region", guild.region)
-    .addField("Members", `${onlineMembers}/${guild.memberCount} online`)
+    .addField("Members", `${onlineMembers}/${membersArr.length} online`)
     .addField("Emojis", numEmojis)
     .addField("Text Channels: ", textChannels.length, true)
     .addField("Voice Channels: ", voiceChannels.length, true)

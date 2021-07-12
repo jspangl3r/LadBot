@@ -77,7 +77,7 @@ export async function run(
                 channelDBMessages[0].createdAt.getTime()
             ) <= FIVE_MIN
           ) {
-            let fullStop = null;
+            let fullStop: string = null;
             if (
               [".", "!", "?"].includes(
                 message.content[message.content.length - 1]
