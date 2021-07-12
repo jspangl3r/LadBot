@@ -82,8 +82,7 @@ client.on("ready", () => {
 });
 
 /**
- * Upon reading a message, call {@code #onMessage}.
- */
+ * Upon reading a message. */
 client.on("message", (message) => {
   onMessage(client, message, db, markovDB);
 });
