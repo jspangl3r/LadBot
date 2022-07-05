@@ -9,7 +9,7 @@
   "author": "Josh Spangler",
   "license": "ISC",
   "dependencies": {
-    "@discordjs/opus": "^0.3.2",
+    "@discordjs/opus": "^0.8.0",
     "async": "^3.2.0",
     "better-sqlite3": "^7.0.1",
     "discord.js": "^12.2.0",
